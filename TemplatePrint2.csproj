@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <ProjectGuid>{408496FB-9872-42D6-96A2-831DA3957798}</ProjectGuid>
+    <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Spoon.Tools.TemplatePrint</RootNamespace>
+    <AssemblyName>TemplatePrint</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <NoWin32Manifest>False</NoWin32Manifest>
+    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+    <NoStdLib>False</NoStdLib>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+    <WarningLevel>4</WarningLevel>
+    <SignAssembly>False</SignAssembly>
+    <AssemblyOriginatorKeyFile>byron.snk</AssemblyOriginatorKeyFile>
+    <DelaySign>False</DelaySign>
+    <AssemblyOriginatorKeyMode>File</AssemblyOriginatorKeyMode>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <ApplicationIcon>Icons\spoon_128px_1149960_easyicon.net.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <BaseAddress>4194304</BaseAddress>
+    <RegisterForComInterop>False</RegisterForComInterop>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <FileAlignment>4096</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>Full</DebugType>
+    <Optimize>False</Optimize>
+    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
+    <StartAction>Project</StartAction>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <DebugSymbols>False</DebugSymbols>
+    <DebugType>None</DebugType>
+    <Optimize>True</Optimize>
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BarcodeLib">
+      <HintPath>..\..\..\..\libs\barcodelib\BarcodeLib.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\..\..\..\libs\NPOI binary 2.1.3.1\dotnet4\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="NPOI">
+      <HintPath>..\..\..\..\libs\NPOI binary 2.1.3.1\dotnet4\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OOXML">
+      <HintPath>..\..\..\..\libs\NPOI binary 2.1.3.1\dotnet4\NPOI.OOXML.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXml4Net">
+      <HintPath>..\..\..\..\libs\NPOI binary 2.1.3.1\dotnet4\NPOI.OpenXml4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXmlFormats">
+      <HintPath>..\..\..\..\libs\NPOI binary 2.1.3.1\dotnet4\NPOI.OpenXmlFormats.dll</HintPath>
+    </Reference>
+    <Reference Include="NUnit.Framework">
+      <HintPath>$(SharpDevelopBinPath)\Tools\NUnit\NUnit.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="QRCoder">
+      <HintPath>..\..\..\..\libs\QRCoder\Release\net40\QRCoder.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controls\wBarcode.cs" />
+    <Compile Include="Controls\wControl.cs" />
+    <Compile Include="Controls\wImage.cs" />
+    <Compile Include="Controls\wLabel.cs" />
+    <Compile Include="Controls\wQRCoder.cs" />
+    <Compile Include="Editer\wBarcodeEditer.cs" />
+    <Compile Include="Editer\wBarcodeEditer.Designer.cs">
+      <DependentUpon>wBarcodeEditer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editer\wCanvasEditer.cs" />
+    <Compile Include="Editer\wCanvasEditer.Designer.cs">
+      <DependentUpon>wCanvasEditer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editer\wControlEditer.cs" />
+    <Compile Include="Editer\wControlEditer.Designer.cs">
+      <DependentUpon>wControlEditer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editer\wImageEditer.cs" />
+    <Compile Include="Editer\wImageEditer.Designer.cs">
+      <DependentUpon>wImageEditer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editer\wLabelEditer.cs" />
+    <Compile Include="Editer\wLabelEditer.Designer.cs">
+      <DependentUpon>wLabelEditer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editer\wQRCoderEditer.cs" />
+    <Compile Include="Editer\wQRCoderEditer.Designer.cs">
+      <DependentUpon>wQRCoderEditer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\About.cs" />
+    <Compile Include="Form\About.Designer.cs">
+      <DependentUpon>About.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\InputPrinter.cs" />
+    <Compile Include="Form\InputPrinter.Designer.cs">
+      <DependentUpon>InputPrinter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\MainForm.cs" />
+    <Compile Include="Form\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\TestForm.cs" />
+    <Compile Include="Form\TestForm.Designer.cs">
+      <DependentUpon>TestForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helper\ArchiveHelper.cs" />
+    <Compile Include="Helper\CommandHelper.cs" />
+    <Compile Include="Helper\ExcelHelper.cs" />
+    <Compile Include="Helper\PrintHelper.cs" />
+    <Compile Include="Helper\UnitHelper.cs" />
+    <Compile Include="Helper\XmlHelper.cs" />
+    <Compile Include="IwSerializable.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="test\Test1.cs" />
+    <Compile Include="wCanvas.cs" />
+    <Compile Include="wControlCollection.cs" />
+    <Compile Include="wExplorer.cs" />
+    <Compile Include="wExplorer.Designer.cs">
+      <DependentUpon>wExplorer.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Icons\barcode_32px_1098043_easyicon.net.png" />
+    <None Include="Icons\barcode_d_32px_1085918_easyicon.net.png" />
+    <None Include="Icons\image_32px_1098224_easyicon.net.png" />
+    <None Include="Icons\qrcode_32px_1102693_easyicon.net.png" />
+    <None Include="Icons\spoon_128px_1149960_easyicon.net.ico" />
+    <None Include="Icons\spoon_144.97612732095px_1149960_easyicon.net.png" />
+    <None Include="Icons\text_serif_32px_1093241_easyicon.net.png" />
+    <None Include="license\barcodelib\LICENSE" />
+    <None Include="license\barcodelib\README.md" />
+    <None Include="log.txt" />
+    <None Include="register\取消关联.reg" />
+    <None Include="register\文件关联.reg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controls" />
+    <Folder Include="test" />
+    <Folder Include="Editer" />
+    <Folder Include="license" />
+    <Folder Include="license\barcodelib" />
+    <Folder Include="Helper" />
+    <Folder Include="Form" />
+    <Folder Include="Icons" />
+    <Folder Include="register" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Editer\wBarcodeEditer.resx">
+      <DependentUpon>wBarcodeEditer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editer\wCanvasEditer.resx">
+      <DependentUpon>wCanvasEditer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editer\wControlEditer.resx">
+      <DependentUpon>wControlEditer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editer\wImageEditer.resx">
+      <DependentUpon>wImageEditer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editer\wLabelEditer.resx">
+      <DependentUpon>wLabelEditer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editer\wQRCoderEditer.resx">
+      <DependentUpon>wQRCoderEditer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\About.resx">
+      <DependentUpon>About.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\InputPrinter.resx">
+      <DependentUpon>InputPrinter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\TestForm.resx">
+      <DependentUpon>TestForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="wExplorer.resx">
+      <DependentUpon>wExplorer.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
