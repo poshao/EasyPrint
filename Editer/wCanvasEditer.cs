@@ -40,7 +40,7 @@ namespace Spoon.Tools.TemplatePrint.Editer
 					rect.X=value;
 					Control.BackgroundRect=rect;
 					txtLeftPixel.Text=value.ToString();
-					txtLeftMm.Text=PrintHelper.DisplayToMm(value).ToString();
+					txtLeftMm.Text=Helper.PrintHelper.DisplayToMm(value).ToString();
 					m_control.Refresh();
 //				}
 			}
@@ -54,7 +54,7 @@ namespace Spoon.Tools.TemplatePrint.Editer
 					rect.Y=value;
 					Control.BackgroundRect=rect;
 					txtTopPixel.Text=value.ToString();
-					txtTopMm.Text=PrintHelper.DisplayToMm(value).ToString();
+					txtTopMm.Text=Helper.PrintHelper.DisplayToMm(value).ToString();
 					m_control.Refresh();
 //				}
 			}
@@ -68,7 +68,7 @@ namespace Spoon.Tools.TemplatePrint.Editer
 					rect.Width=value;
 					Control.BackgroundRect=rect;
 					txtWidthPixel.Text=value.ToString();
-					txtWidthMm.Text=PrintHelper.DisplayToMm(value).ToString();
+					txtWidthMm.Text=Helper.PrintHelper.DisplayToMm(value).ToString();
 					m_control.Refresh();
 //				}
 			}
@@ -82,7 +82,7 @@ namespace Spoon.Tools.TemplatePrint.Editer
 					rect.Height=value;
 					Control.BackgroundRect=rect;
 					txtHeightPixel.Text=value.ToString();
-					txtHeightMm.Text=PrintHelper.DisplayToMm(value).ToString();
+					txtHeightMm.Text=Helper.PrintHelper.DisplayToMm(value).ToString();
 					m_control.Refresh();
 //				}
 			}
@@ -93,7 +93,7 @@ namespace Spoon.Tools.TemplatePrint.Editer
 			set{
 				m_control.Width=value;
 				txtSizeWidthPixel.Text=value.ToString();
-				txtSizeWidthMm.Text=PrintHelper.DisplayToMm(value).ToString();
+				txtSizeWidthMm.Text=Helper.PrintHelper.DisplayToMm(value).ToString();
 			}
 		}
 		
@@ -102,7 +102,7 @@ namespace Spoon.Tools.TemplatePrint.Editer
 			set{
 				m_control.Height=value;
 				txtSizeHeightPixel.Text=value.ToString();
-				txtSizeHeightMm.Text=PrintHelper.DisplayToMm(value).ToString();
+				txtSizeHeightMm.Text=Helper.PrintHelper.DisplayToMm(value).ToString();
 			}
 		}
 		
@@ -142,7 +142,7 @@ namespace Spoon.Tools.TemplatePrint.Editer
 		
 		public wCanvasEditer(wCanvas control){
 			InitializeComponent();
-			Control=control;			
+			Control=control;
 		}
 		
 		void OnTextBoxLeave(object sender,EventArgs e){
@@ -178,16 +178,16 @@ namespace Spoon.Tools.TemplatePrint.Editer
 					bHeight=int.Parse(txt.Text);
 					break;
 				case "txtLeftMm":
-					bLeft=PrintHelper.MmToDisplay(float.Parse(txt.Text));
+					bLeft=Helper.PrintHelper.MmToDisplay(float.Parse(txt.Text));
 					break;
 				case "txtTopMm":
-					bTop=PrintHelper.MmToDisplay(float.Parse(txt.Text));
+					bTop=Helper.PrintHelper.MmToDisplay(float.Parse(txt.Text));
 					break;
 				case "txtWidthMm":
-					bWidth=PrintHelper.MmToDisplay(float.Parse(txt.Text));
+					bWidth=Helper.PrintHelper.MmToDisplay(float.Parse(txt.Text));
 					break;
 				case "txtHeightMm":
-					bHeight=PrintHelper.MmToDisplay(float.Parse(txt.Text));
+					bHeight=Helper.PrintHelper.MmToDisplay(float.Parse(txt.Text));
 					break;
 				case "txtSizeWidthPixel":
 					cWidth=int.Parse(txt.Text);
@@ -196,10 +196,10 @@ namespace Spoon.Tools.TemplatePrint.Editer
 					cHeight=int.Parse(txt.Text);
 					break;
 				case "txtSizeWidthMm":
-					cWidth=PrintHelper.MmToDisplay(float.Parse(txt.Text));
+					cWidth=Helper.PrintHelper.MmToDisplay(float.Parse(txt.Text));
 					break;
 				case "txtSizeHeightMm":
-					cHeight=PrintHelper.MmToDisplay(float.Parse(txt.Text));
+					cHeight=Helper.PrintHelper.MmToDisplay(float.Parse(txt.Text));
 					break;
 				case "txtAuthor":
 					Control.Author=txt.Text;
@@ -220,6 +220,10 @@ namespace Spoon.Tools.TemplatePrint.Editer
 			}
 			using (var ofd=new OpenFileDialog()) {
 				ofd.Filter="图片文件(*.jpeg;*.jpg;*.png;*.bmp;*.gif)|*.jpeg;*.jpg;*.png;*.bmp;*.gif|所有文件(*.*)|*.*";
+				if(Control.BackgroundPath!=string.Empty){
+					ofd.InitialDirectory=System.IO.Path.GetDirectoryName(Control.BackgroundPath);
+					ofd.FileName=Control.BackgroundPath;
+				}
 				if(ofd.ShowDialog()==DialogResult.OK){
 					txtPath.Text=ofd.FileName;
 					Control.BackgroundPath=ofd.FileName;
@@ -251,6 +255,25 @@ namespace Spoon.Tools.TemplatePrint.Editer
 				
 			}
 		}
-
+		void OnMoveButtonClick(object sender, EventArgs e)
+		{
+			if(Control==null) return;
+			var btn = sender as Button;
+			int step=Helper.PrintHelper.MmToDisplay(float.Parse(txtMoveStep.Text));
+			switch (btn.Name) {
+				case "btnMoveUp":
+					Control.Offset(0,-step);
+					break;
+				case "btnMoveRight":
+					Control.Offset(step,0);
+					break;
+				case "btnMoveDown":
+					Control.Offset(0,step);
+					break;
+				case "btnMoveLeft":
+					Control.Offset(-step,0);
+					break;
+			}
+		}
 	}
 }

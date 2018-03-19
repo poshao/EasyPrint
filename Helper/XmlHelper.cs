@@ -9,7 +9,7 @@
  */ 
 using System;
 
-namespace Spoon.Tools.TemplatePrint
+namespace Spoon.Tools.TemplatePrint.Helper
 {
 	/// <summary>
 	/// Description of XmlHelper.

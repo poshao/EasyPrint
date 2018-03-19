@@ -32,14 +32,33 @@ namespace Spoon.Tools.TemplatePrint.Helper
 		/// </summary>
 		/// <param name="args"></param>
 		public static void Parse(string[] args){
-			
 			if(args.Length==1){
-				Configs.Add("file",args[0]);
+				if(System.IO.File.Exists(args[0])){
+					Configs.Add("file",args[0]);
+				}else{
+					InvalidCommand();
+				}
 			}else{
-				for (int i = 0; i < args.Length; i+=2) {
-					Configs.Add(args[i],args[i+1]);
+				for (int i = 0; i < args.Length; i++) {
+					if(!args[i].StartsWith("--",StringComparison.CurrentCulture)){
+						InvalidCommand();
+					}
+					if (i+1<=args.Length && !args[i+1].StartsWith("--",StringComparison.CurrentCulture)) {
+						Configs.Add(args[i].Replace("--",""),args[++i]);
+					}else{
+						Configs.Add(args[i].Replace("--",""),"True");
+					}
 				}
 			}
+		}
+		
+		/// <summary>
+		/// 无效命令
+		/// </summary>
+		public static void InvalidCommand(){
+			Console.WriteLine("Invalid Command!");
+			Console.ReadKey();
+			Environment.Exit(1);
 		}
 	}
 }

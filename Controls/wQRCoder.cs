@@ -92,7 +92,7 @@ namespace Spoon.Tools.TemplatePrint.Controls
 			}
 		}
 		
-		public override void DoPrint(System.Collections.Generic.Dictionary<string, string> datalist, PrintHelper.wPrintEventArgs e)
+		public override void DoPrint(System.Collections.Generic.Dictionary<string, string> datalist, Helper.PrintHelper.wPrintEventArgs e)
 		{
 			base.DoPrint(datalist, e);
 			if(datalist!=null && datalist.ContainsKey(Name)){
@@ -124,9 +124,9 @@ namespace Spoon.Tools.TemplatePrint.Controls
 		public override System.Xml.XmlNode ToXml(System.Xml.XmlNode node)
 		{
 			var ctl=node.OwnerDocument.CreateElement("qrcoder");
-			XmlHelper.AddAttribute("text",Text,ctl);
-			XmlHelper.AddAttribute("level",Level.ToString(),ctl);
-			XmlHelper.AddAttribute("pixels",PixelsPerModule.ToString(),ctl);
+			Helper.XmlHelper.AddAttribute("text",Text,ctl);
+			Helper.XmlHelper.AddAttribute("level",Level.ToString(),ctl);
+			Helper.XmlHelper.AddAttribute("pixels",PixelsPerModule.ToString(),ctl);
 			return base.ToXml(ctl);
 		}
 		

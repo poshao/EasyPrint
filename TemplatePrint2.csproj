@@ -39,6 +39,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
     <StartAction>Project</StartAction>
+    <StartArguments>--file "C:\Users\0115289\Documents\SharpDevelop Projects\SpoonSystem\TemplatePrint\bin\Debug\templates\1. 顺丰\sf.bg" --mode-server --set-printername "\\Fppdnan05\EP680K-NANB1FD99" --set-data-excel "C:\Users\0115289\Desktop\testtest.xlsx"</StartArguments>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -140,6 +141,10 @@
     <Compile Include="IwSerializable.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RES.Designer.cs">
+      <DependentUpon>RES.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Include="test\Test1.cs" />
     <Compile Include="wCanvas.cs" />
     <Compile Include="wControlCollection.cs" />
@@ -160,6 +165,8 @@
     <None Include="license\barcodelib\LICENSE" />
     <None Include="license\barcodelib\README.md" />
     <None Include="log.txt" />
+    <None Include="params.txt" />
+    <None Include="printTest.bat" />
     <None Include="register\取消关联.reg" />
     <None Include="register\文件关联.reg" />
   </ItemGroup>
@@ -204,6 +211,11 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form\TestForm.resx">
       <DependentUpon>TestForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RES.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <CustomToolNamespace>Spoon.Tools.TemplatePrint</CustomToolNamespace>
+      <LastGenOutput>RES.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="wExplorer.resx">
       <DependentUpon>wExplorer.cs</DependentUpon>

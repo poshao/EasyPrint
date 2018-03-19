@@ -9,12 +9,65 @@
  */ 
 using System;
 using NUnit.Framework;
+using System.Drawing;
 
 namespace Spoon.Tools.TemplatePrint.test
 {
 	[TestFixture]
 	public class Test1
 	{
+		[Test]
+		public void ConvertFile()
+		{
+//			return;
+			var dds = System.IO.Directory.GetDirectories(@"C:\Users\0115289\Documents\SharpDevelop Projects\SpoonSystem\TemplatePrint\bin\Debug\templates");
+			foreach (var ds in dds) {
+				foreach (var f in System.IO.Directory.GetFiles(ds,"*.xml")) {
+//					System.Diagnostics.Debug.WriteLine(f);
+					if(System.IO.Path.GetExtension(f)!=".xml") continue;
+					var olddoc = new System.Xml.XmlDocument();
+			
+					olddoc.Load(f);
+			
+					var doc = Helper.XmlHelper.NewDocment();
+					wCanvas canvas = new wCanvas();
+					canvas.Author = "Elder Yao";
+			
+					var size = olddoc.SelectSingleNode("/layout/size");
+					canvas.Size = new System.Drawing.Size(int.Parse(size.Attributes["width"].Value), int.Parse(size.Attributes["height"].Value));
+			
+					var background = olddoc.SelectSingleNode("/layout/background");
+					canvas.BackgroundPath = @"C:\Users\0115289\Documents\SharpDevelop Projects\SpoonSystem\TemplatePrint\bin\Debug\" + background.Attributes["path"].Value;
+					var ss = float.Parse(background.Attributes["scale"].Value);
+					canvas.BackgroundRect = new Rectangle(0, 0, (int)(canvas.BackgroundImage.Width * ss), (int)(canvas.BackgroundImage.Height * ss));
+			
+					foreach (System.Xml.XmlNode item in olddoc.SelectSingleNode("/layout/items").ChildNodes) {
+						var lbl = new Controls.wLabel();
+						lbl.ShowBorder=false;
+						lbl.Name = item.Attributes["name"].Value;
+						lbl.Text = item.Attributes["value"].Value;
+						lbl.Rectangle = new System.Drawing.Rectangle(
+							int.Parse(item.Attributes["left"].Value),
+							int.Parse(item.Attributes["top"].Value),
+							int.Parse(item.Attributes["width"].Value),
+							int.Parse(item.Attributes["height"].Value)
+						);
+						var fc = new System.Drawing.FontConverter();
+						lbl.Font = fc.ConvertFromString(item.Attributes["font"].Value) as System.Drawing.Font;
+				
+//						lbl.ShowBorder = true;
+						canvas.Controls.Add(lbl);
+					}
+			
+					doc.AppendChild(canvas.ToXml(doc));
+//					doc.Save(f + "x");
+					
+					Helper.UnitHelper.ArchiveFiles(doc,f.Replace(".xml",".bg"));
+				}
+			}
+			System.Diagnostics.Debug.WriteLine("OK");
+		}
+		
 		[Test]
 		public void dsdf(){
 			var dds = System.IO.Directory.GetDirectories(@"C:\Users\0115289\Documents\SharpDevelop Projects\SpoonSystem\TemplatePrint\bin\Debug\templates");
@@ -137,7 +190,7 @@ namespace Spoon.Tools.TemplatePrint.test
 			
 			olddoc.Load(@"C:\Users\0115289\Documents\SharpDevelop Projects\SpoonSystem\TemplatePrint\bin\Debug\templates\1. 顺丰\sf.xml");
 			
-			var doc=XmlHelper.NewDocment();
+			var doc=Helper.XmlHelper.NewDocment();
 			wCanvas canvas=new wCanvas();
 			canvas.Author="Elder Yao";
 			

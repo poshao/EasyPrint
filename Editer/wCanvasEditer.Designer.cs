@@ -49,6 +49,13 @@ namespace Spoon.Tools.TemplatePrint.Editer
 		private System.Windows.Forms.TextBox txtCreate;
 		private System.Windows.Forms.TextBox txtAuthor;
 		private System.Windows.Forms.Label label11;
+		private System.Windows.Forms.GroupBox groupBox4;
+		private System.Windows.Forms.Label label13;
+		private System.Windows.Forms.TextBox txtMoveStep;
+		private System.Windows.Forms.Button btnMoveDown;
+		private System.Windows.Forms.Button btnMoveUp;
+		private System.Windows.Forms.Button btnMoveRight;
+		private System.Windows.Forms.Button btnMoveLeft;
 		
 		/// <summary>
 		/// Disposes resources used by the control.
@@ -101,13 +108,21 @@ namespace Spoon.Tools.TemplatePrint.Editer
 			this.label9 = new System.Windows.Forms.Label();
 			this.label10 = new System.Windows.Forms.Label();
 			this.groupBox3 = new System.Windows.Forms.GroupBox();
-			this.label12 = new System.Windows.Forms.Label();
 			this.txtCreate = new System.Windows.Forms.TextBox();
 			this.txtAuthor = new System.Windows.Forms.TextBox();
 			this.label11 = new System.Windows.Forms.Label();
+			this.label12 = new System.Windows.Forms.Label();
+			this.groupBox4 = new System.Windows.Forms.GroupBox();
+			this.label13 = new System.Windows.Forms.Label();
+			this.txtMoveStep = new System.Windows.Forms.TextBox();
+			this.btnMoveDown = new System.Windows.Forms.Button();
+			this.btnMoveUp = new System.Windows.Forms.Button();
+			this.btnMoveRight = new System.Windows.Forms.Button();
+			this.btnMoveLeft = new System.Windows.Forms.Button();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			this.groupBox3.SuspendLayout();
+			this.groupBox4.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// groupBox1
@@ -399,20 +414,12 @@ namespace Spoon.Tools.TemplatePrint.Editer
 			this.groupBox3.Controls.Add(this.txtAuthor);
 			this.groupBox3.Controls.Add(this.label11);
 			this.groupBox3.Controls.Add(this.label12);
-			this.groupBox3.Location = new System.Drawing.Point(8, 325);
+			this.groupBox3.Location = new System.Drawing.Point(8, 436);
 			this.groupBox3.Name = "groupBox3";
 			this.groupBox3.Size = new System.Drawing.Size(232, 74);
 			this.groupBox3.TabIndex = 2;
 			this.groupBox3.TabStop = false;
 			this.groupBox3.Text = "基础";
-			// 
-			// label12
-			// 
-			this.label12.Location = new System.Drawing.Point(13, 46);
-			this.label12.Name = "label12";
-			this.label12.Size = new System.Drawing.Size(46, 13);
-			this.label12.TabIndex = 2;
-			this.label12.Text = "创建";
 			// 
 			// txtCreate
 			// 
@@ -440,22 +447,109 @@ namespace Spoon.Tools.TemplatePrint.Editer
 			this.label11.TabIndex = 0;
 			this.label11.Text = "绘制";
 			// 
+			// label12
+			// 
+			this.label12.Location = new System.Drawing.Point(13, 46);
+			this.label12.Name = "label12";
+			this.label12.Size = new System.Drawing.Size(46, 13);
+			this.label12.TabIndex = 2;
+			this.label12.Text = "创建";
+			// 
+			// groupBox4
+			// 
+			this.groupBox4.Controls.Add(this.label13);
+			this.groupBox4.Controls.Add(this.txtMoveStep);
+			this.groupBox4.Controls.Add(this.btnMoveDown);
+			this.groupBox4.Controls.Add(this.btnMoveUp);
+			this.groupBox4.Controls.Add(this.btnMoveRight);
+			this.groupBox4.Controls.Add(this.btnMoveLeft);
+			this.groupBox4.Location = new System.Drawing.Point(8, 325);
+			this.groupBox4.Name = "groupBox4";
+			this.groupBox4.Size = new System.Drawing.Size(232, 105);
+			this.groupBox4.TabIndex = 3;
+			this.groupBox4.TabStop = false;
+			this.groupBox4.Text = "整体偏移";
+			// 
+			// label13
+			// 
+			this.label13.AutoSize = true;
+			this.label13.Location = new System.Drawing.Point(147, 25);
+			this.label13.Name = "label13";
+			this.label13.Size = new System.Drawing.Size(59, 13);
+			this.label13.TabIndex = 2;
+			this.label13.Text = "Step(毫米)";
+			// 
+			// txtMoveStep
+			// 
+			this.txtMoveStep.Location = new System.Drawing.Point(147, 45);
+			this.txtMoveStep.Name = "txtMoveStep";
+			this.txtMoveStep.Size = new System.Drawing.Size(73, 20);
+			this.txtMoveStep.TabIndex = 1;
+			this.txtMoveStep.Text = "1";
+			// 
+			// btnMoveDown
+			// 
+			this.btnMoveDown.Location = new System.Drawing.Point(49, 61);
+			this.btnMoveDown.Margin = new System.Windows.Forms.Padding(2);
+			this.btnMoveDown.Name = "btnMoveDown";
+			this.btnMoveDown.Size = new System.Drawing.Size(36, 36);
+			this.btnMoveDown.TabIndex = 0;
+			this.btnMoveDown.Text = "↓";
+			this.btnMoveDown.UseVisualStyleBackColor = true;
+			this.btnMoveDown.Click += new System.EventHandler(this.OnMoveButtonClick);
+			// 
+			// btnMoveUp
+			// 
+			this.btnMoveUp.Location = new System.Drawing.Point(49, 21);
+			this.btnMoveUp.Margin = new System.Windows.Forms.Padding(2);
+			this.btnMoveUp.Name = "btnMoveUp";
+			this.btnMoveUp.Size = new System.Drawing.Size(36, 36);
+			this.btnMoveUp.TabIndex = 0;
+			this.btnMoveUp.Text = "↑";
+			this.btnMoveUp.UseVisualStyleBackColor = true;
+			this.btnMoveUp.Click += new System.EventHandler(this.OnMoveButtonClick);
+			// 
+			// btnMoveRight
+			// 
+			this.btnMoveRight.Location = new System.Drawing.Point(89, 61);
+			this.btnMoveRight.Margin = new System.Windows.Forms.Padding(2);
+			this.btnMoveRight.Name = "btnMoveRight";
+			this.btnMoveRight.Size = new System.Drawing.Size(36, 36);
+			this.btnMoveRight.TabIndex = 0;
+			this.btnMoveRight.Text = "→";
+			this.btnMoveRight.UseVisualStyleBackColor = true;
+			this.btnMoveRight.Click += new System.EventHandler(this.OnMoveButtonClick);
+			// 
+			// btnMoveLeft
+			// 
+			this.btnMoveLeft.Location = new System.Drawing.Point(9, 61);
+			this.btnMoveLeft.Margin = new System.Windows.Forms.Padding(2);
+			this.btnMoveLeft.Name = "btnMoveLeft";
+			this.btnMoveLeft.Size = new System.Drawing.Size(36, 36);
+			this.btnMoveLeft.TabIndex = 0;
+			this.btnMoveLeft.Text = "←";
+			this.btnMoveLeft.UseVisualStyleBackColor = true;
+			this.btnMoveLeft.Click += new System.EventHandler(this.OnMoveButtonClick);
+			// 
 			// wCanvasEditer
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.Controls.Add(this.groupBox4);
 			this.Controls.Add(this.groupBox3);
 			this.Controls.Add(this.groupBox2);
 			this.Controls.Add(this.groupBox1);
 			this.MinimumSize = new System.Drawing.Size(251, 331);
 			this.Name = "wCanvasEditer";
-			this.Size = new System.Drawing.Size(251, 411);
+			this.Size = new System.Drawing.Size(251, 519);
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
 			this.groupBox2.ResumeLayout(false);
 			this.groupBox2.PerformLayout();
 			this.groupBox3.ResumeLayout(false);
 			this.groupBox3.PerformLayout();
+			this.groupBox4.ResumeLayout(false);
+			this.groupBox4.PerformLayout();
 			this.ResumeLayout(false);
 
 		}

@@ -24,6 +24,16 @@ namespace Spoon.Tools.TemplatePrint
 		private static void Main(string[] args)
 		{
 			Helper.CommandHelper.Parse(args);
+			var CFG=Helper.CommandHelper.Configs;
+			if(CFG.ContainsKey("mode-server")){
+				if(CFG.ContainsKey("file") && CFG.ContainsKey("set-data-excel") && CFG.ContainsKey("set-printername")){
+					Helper.PrintHelper.QuitePrint(CFG["file"],CFG["set-printername"],CFG["set-data-excel"]);
+					return;
+				}else{
+					Helper.CommandHelper.InvalidCommand();
+				}
+			}
+			
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 			Application.Run(new MainForm());

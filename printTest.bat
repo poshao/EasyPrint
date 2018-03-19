@@ -1,0 +1,1 @@
+"C:\Users\0115289\Documents\SharpDevelop Projects\SpoonSystem\TemplatePrint2\bin\Debug\TemplatePrint.exe" --file "C:\Users\0115289\Documents\SharpDevelop Projects\SpoonSystem\TemplatePrint\bin\Debug\templates\1. Ë³·á\sf.bg" --mode-server --set-printername "\\fppdnan05\EP680K-NANB1FD99" --set-data-excel "C:\Users\0115289\Desktop\testtest.xlsx" --print-offset -27x-3

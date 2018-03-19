@@ -11,7 +11,7 @@ using System;
 using System.Drawing;
 using System.Drawing.Printing;
 
-namespace Spoon.Tools.TemplatePrint
+namespace Spoon.Tools.TemplatePrint.Helper
 {
 	/// <summary>
 	/// Description of PrintHelper.
@@ -77,6 +77,14 @@ namespace Spoon.Tools.TemplatePrint
 		}
 		
 		/// <summary>
+		/// 打印偏移量(毫米)
+		/// </summary>
+		public PointF OffsetMm{
+			get{return new PointF(Helper.PrintHelper.DisplayToMm(m_offset.X),Helper.PrintHelper.DisplayToMm(m_offset.Y));}
+			set{m_offset=new Point(Helper.PrintHelper.MmToDisplay(value.X),Helper.PrintHelper.MmToDisplay(value.Y));}
+		}
+		
+		/// <summary>
 		/// 打印画布
 		/// </summary>
 		public wCanvas Canvas{
@@ -131,6 +139,14 @@ namespace Spoon.Tools.TemplatePrint
 			}
 		}
 		
+		protected override void Dispose(bool disposing)
+		{
+			base.Dispose(disposing);
+			if(m_canvas!=null){
+				m_canvas.Dispose();
+			}
+		}
+		
 		/// <summary>
 		/// 将像素单位转为毫米
 		/// </summary>
@@ -177,6 +193,30 @@ namespace Spoon.Tools.TemplatePrint
 				if(paper.PaperName==paperName) return paper;
 			}
 			return null;
+		}
+		
+		public static void QuitePrint(string layoutPath,string printername,string dataPath)
+		{
+			string tempdir=Helper.UnitHelper.GetTemplateFolderName();
+			Helper.UnitHelper.UnArchiveFiles(layoutPath,tempdir);
+			var doc=new System.Xml.XmlDocument();
+			doc.Load(System.IO.Path.Combine(tempdir,"layout.xml"));
+			var canvas=new wCanvas(doc);
+			var pt=new Helper.PrintHelper(printername,Helper.PrintHelper.DisplayToMm(canvas.Width),Helper.PrintHelper.DisplayToMm(canvas.Height));
+			pt.Canvas=canvas;
+			pt.Data=Helper.ExcelHelper.ExcelToTemplateData(dataPath,"Sheet1");
+			var CFG=Helper.CommandHelper.Configs;
+			if(CFG.ContainsKey("print-offset")){
+				var printoffset=CFG["print-offset"].Split("x".ToCharArray());
+				pt.OffsetMm=new PointF(float.Parse(printoffset[0]),float.Parse(printoffset[1]));
+			}
+//			pt.OffsetMm=new PointF(-27,-3);
+//			pt.PrinterSettings.PrintToFile=true;
+//			pt.PrinterSettings.PrintFileName=@"C:\Users\0115289\Desktop\N7RNAN1LOG00003_0115289.pdf";
+			pt.Print();
+			pt.Dispose();
+			doc=null;
+			System.IO.Directory.Delete(tempdir,true);
 		}
 	}
 }

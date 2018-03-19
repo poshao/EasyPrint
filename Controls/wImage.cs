@@ -64,7 +64,7 @@ namespace Spoon.Tools.TemplatePrint.Controls
 			}
 		}
 		
-		public override void DoPrint(System.Collections.Generic.Dictionary<string, string> datalist,PrintHelper.wPrintEventArgs e)
+		public override void DoPrint(System.Collections.Generic.Dictionary<string, string> datalist,Helper.PrintHelper.wPrintEventArgs e)
 		{
 			base.DoPrint(datalist,e);
 			var img=m_img;
@@ -97,7 +97,7 @@ namespace Spoon.Tools.TemplatePrint.Controls
 		public override System.Xml.XmlNode ToXml(System.Xml.XmlNode node)
 		{
 			var ctl=node.OwnerDocument.CreateElement("image");
-			XmlHelper.AddAttribute("src",ImagePath,ctl);
+			Helper.XmlHelper.AddAttribute("src",ImagePath,ctl);
 			return base.ToXml(ctl);
 		}
 	}

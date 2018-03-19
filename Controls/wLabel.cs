@@ -91,7 +91,7 @@ namespace Spoon.Tools.TemplatePrint.Controls
 			g.DrawString(m_value,m_font,Brushes.Black,new RectangleF(rect.Location,rect.Size),sf);
 		}
 		
-		public override void DoPrint(System.Collections.Generic.Dictionary<string, string> datalist,PrintHelper.wPrintEventArgs e)
+		public override void DoPrint(System.Collections.Generic.Dictionary<string, string> datalist,Helper.PrintHelper.wPrintEventArgs e)
 		{
 			base.DoPrint(datalist,e);
 			var txt=m_value;
@@ -125,11 +125,11 @@ namespace Spoon.Tools.TemplatePrint.Controls
 		public override System.Xml.XmlNode ToXml(System.Xml.XmlNode node)
 		{
 			var ctl=node.OwnerDocument.CreateElement("label");
-			XmlHelper.AddAttribute("text",Text,ctl);
-			XmlHelper.AddAttribute("horizontal-alignment",HorizontalAlignment.ToString(),ctl);
-			XmlHelper.AddAttribute("vetical-alignment",VeticalAlignment.ToString(),ctl);
+			Helper.XmlHelper.AddAttribute("text",Text,ctl);
+			Helper.XmlHelper.AddAttribute("horizontal-alignment",HorizontalAlignment.ToString(),ctl);
+			Helper.XmlHelper.AddAttribute("vetical-alignment",VeticalAlignment.ToString(),ctl);
 			var fc=new FontConverter();
-			XmlHelper.AddAttribute("font",fc.ConvertToString(Font),ctl);
+			Helper.XmlHelper.AddAttribute("font",fc.ConvertToString(Font),ctl);
 			return base.ToXml(ctl);
 		}
 	}

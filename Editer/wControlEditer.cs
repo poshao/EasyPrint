@@ -27,7 +27,7 @@ namespace Spoon.Tools.TemplatePrint.Editer
 			set{
 				m_control.Left=value;
 				txtLeftPixel.Text=value.ToString();
-				txtLeftMm.Text=PrintHelper.DisplayToMm(value).ToString();
+				txtLeftMm.Text=Helper.PrintHelper.DisplayToMm(value).ToString();
 			}
 		}
 		public int wTop{
@@ -35,7 +35,7 @@ namespace Spoon.Tools.TemplatePrint.Editer
 			set{
 				m_control.Top=value;
 				txtTopPixel.Text=value.ToString();
-				txtTopMm.Text=PrintHelper.DisplayToMm(value).ToString();
+				txtTopMm.Text=Helper.PrintHelper.DisplayToMm(value).ToString();
 			}
 		}
 		public int wWidth{
@@ -43,7 +43,7 @@ namespace Spoon.Tools.TemplatePrint.Editer
 			set{
 				m_control.Width=value;
 				txtWidthPixel.Text=value.ToString();
-				txtWidthMm.Text=PrintHelper.DisplayToMm(value).ToString();
+				txtWidthMm.Text=Helper.PrintHelper.DisplayToMm(value).ToString();
 			}
 		}
 		public int wHeight{
@@ -51,7 +51,7 @@ namespace Spoon.Tools.TemplatePrint.Editer
 			set{
 				m_control.Height=value;
 				txtHeightPixel.Text=value.ToString();
-				txtHeightMm.Text=PrintHelper.DisplayToMm(value).ToString();
+				txtHeightMm.Text=Helper.PrintHelper.DisplayToMm(value).ToString();
 			}
 		}
 		public Controls.wControl Control{
@@ -114,16 +114,16 @@ namespace Spoon.Tools.TemplatePrint.Editer
 					wHeight=int.Parse(txt.Text);
 					break;
 				case "txtLeftMm":
-					wLeft=PrintHelper.MmToDisplay(float.Parse(txt.Text));
+					wLeft=Helper.PrintHelper.MmToDisplay(float.Parse(txt.Text));
 					break;
 				case "txtTopMm":
-					wTop=PrintHelper.MmToDisplay(float.Parse(txt.Text));
+					wTop=Helper.PrintHelper.MmToDisplay(float.Parse(txt.Text));
 					break;
 				case "txtWidthMm":
-					wWidth=PrintHelper.MmToDisplay(float.Parse(txt.Text));
+					wWidth=Helper.PrintHelper.MmToDisplay(float.Parse(txt.Text));
 					break;
 				case "txtHeightMm":
-					wHeight=PrintHelper.MmToDisplay(float.Parse(txt.Text));
+					wHeight=Helper.PrintHelper.MmToDisplay(float.Parse(txt.Text));
 					break;
 			}
 			m_control.Refresh();

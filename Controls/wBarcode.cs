@@ -102,7 +102,7 @@ namespace Spoon.Tools.TemplatePrint.Controls
 			
 		}
 		
-		public override void DoPrint(System.Collections.Generic.Dictionary<string, string> datalist,PrintHelper.wPrintEventArgs e)
+		public override void DoPrint(System.Collections.Generic.Dictionary<string, string> datalist,Helper.PrintHelper.wPrintEventArgs e)
 		{
 			base.DoPrint(datalist,e);
 			var txt=Text;
@@ -136,9 +136,9 @@ namespace Spoon.Tools.TemplatePrint.Controls
 		public override System.Xml.XmlNode ToXml(System.Xml.XmlNode node)
 		{
 			var ctl=node.OwnerDocument.CreateElement("barcode");
-			XmlHelper.AddAttribute("encoding",EncodeType.ToString(),ctl);
-			XmlHelper.AddAttribute("text",Text,ctl);
-			XmlHelper.AddAttribute("text-visible",ShowText.ToString(),ctl);
+			Helper.XmlHelper.AddAttribute("encoding",EncodeType.ToString(),ctl);
+			Helper.XmlHelper.AddAttribute("text",Text,ctl);
+			Helper.XmlHelper.AddAttribute("text-visible",ShowText.ToString(),ctl);
 			return base.ToXml(ctl);
 		}
 		

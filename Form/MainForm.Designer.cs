@@ -28,7 +28,6 @@ namespace Spoon.Tools.TemplatePrint
 		private System.Windows.Forms.ToolStripMenuItem 帮助HToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem 关于AToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem 新建NToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem testToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem 打印PToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem 打印预览ToolStripMenuItem;
 		private System.Windows.Forms.ToolStrip toolStrip1;
@@ -37,8 +36,7 @@ namespace Spoon.Tools.TemplatePrint
 		private System.Windows.Forms.ToolStripButton sbBarcode;
 		private System.Windows.Forms.ToolStripButton sbQRCoder;
 		private System.Windows.Forms.ToolStripMenuItem 另存为ASToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem 保存2ToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem 打开2ToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem 绑定数据ToolStripMenuItem;
 		
 		/// <summary>
 		/// Disposes resources used by the form.
@@ -78,14 +76,12 @@ namespace Spoon.Tools.TemplatePrint
 			this.打印预览ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.帮助HToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.关于AToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.保存2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.打开2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStrip1 = new System.Windows.Forms.ToolStrip();
 			this.sbLabel = new System.Windows.Forms.ToolStripButton();
 			this.sbImage = new System.Windows.Forms.ToolStripButton();
 			this.sbBarcode = new System.Windows.Forms.ToolStripButton();
 			this.sbQRCoder = new System.Windows.Forms.ToolStripButton();
+			this.绑定数据ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
 			this.splitContainer1.Panel1.SuspendLayout();
 			this.splitContainer1.Panel2.SuspendLayout();
@@ -195,8 +191,7 @@ namespace Spoon.Tools.TemplatePrint
 			this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
 			this.文件FToolStripMenuItem,
 			this.打印PToolStripMenuItem,
-			this.帮助HToolStripMenuItem,
-			this.testToolStripMenuItem});
+			this.帮助HToolStripMenuItem});
 			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip1.Name = "menuStrip1";
 			this.menuStrip1.Size = new System.Drawing.Size(778, 24);
@@ -243,11 +238,13 @@ namespace Spoon.Tools.TemplatePrint
 			this.另存为ASToolStripMenuItem.Name = "另存为ASToolStripMenuItem";
 			this.另存为ASToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
 			this.另存为ASToolStripMenuItem.Text = "另存为...";
+			this.另存为ASToolStripMenuItem.Click += new System.EventHandler(this.另存为ASToolStripMenuItemClick);
 			// 
 			// 打印PToolStripMenuItem
 			// 
 			this.打印PToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			this.打印预览ToolStripMenuItem});
+			this.打印预览ToolStripMenuItem,
+			this.绑定数据ToolStripMenuItem});
 			this.打印PToolStripMenuItem.Name = "打印PToolStripMenuItem";
 			this.打印PToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
 			this.打印PToolStripMenuItem.Text = "打印(&P)";
@@ -255,7 +252,7 @@ namespace Spoon.Tools.TemplatePrint
 			// 打印预览ToolStripMenuItem
 			// 
 			this.打印预览ToolStripMenuItem.Name = "打印预览ToolStripMenuItem";
-			this.打印预览ToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+			this.打印预览ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.打印预览ToolStripMenuItem.Text = "打印预览";
 			this.打印预览ToolStripMenuItem.Click += new System.EventHandler(this.打印预览ToolStripMenuItemClick);
 			// 
@@ -273,30 +270,6 @@ namespace Spoon.Tools.TemplatePrint
 			this.关于AToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
 			this.关于AToolStripMenuItem.Text = "关于(&A)";
 			this.关于AToolStripMenuItem.Click += new System.EventHandler(this.关于AToolStripMenuItemClick);
-			// 
-			// testToolStripMenuItem
-			// 
-			this.testToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-			this.保存2ToolStripMenuItem,
-			this.打开2ToolStripMenuItem});
-			this.testToolStripMenuItem.Name = "testToolStripMenuItem";
-			this.testToolStripMenuItem.Size = new System.Drawing.Size(38, 20);
-			this.testToolStripMenuItem.Text = "test";
-			this.testToolStripMenuItem.Click += new System.EventHandler(this.TestToolStripMenuItemClick);
-			// 
-			// 保存2ToolStripMenuItem
-			// 
-			this.保存2ToolStripMenuItem.Name = "保存2ToolStripMenuItem";
-			this.保存2ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-			this.保存2ToolStripMenuItem.Text = "保存2";
-			this.保存2ToolStripMenuItem.Click += new System.EventHandler(this.保存2ToolStripMenuItemClick);
-			// 
-			// 打开2ToolStripMenuItem
-			// 
-			this.打开2ToolStripMenuItem.Name = "打开2ToolStripMenuItem";
-			this.打开2ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-			this.打开2ToolStripMenuItem.Text = "打开2";
-			this.打开2ToolStripMenuItem.Click += new System.EventHandler(this.打开2ToolStripMenuItemClick);
 			// 
 			// toolStrip1
 			// 
@@ -353,6 +326,13 @@ namespace Spoon.Tools.TemplatePrint
 			this.sbQRCoder.Text = "QRCoder";
 			this.sbQRCoder.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
 			this.sbQRCoder.Click += new System.EventHandler(this.OnAddButonClick);
+			// 
+			// 绑定数据ToolStripMenuItem
+			// 
+			this.绑定数据ToolStripMenuItem.Name = "绑定数据ToolStripMenuItem";
+			this.绑定数据ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.绑定数据ToolStripMenuItem.Text = "绑定数据";
+			this.绑定数据ToolStripMenuItem.Click += new System.EventHandler(this.绑定数据ToolStripMenuItemClick);
 			// 
 			// MainForm
 			// 

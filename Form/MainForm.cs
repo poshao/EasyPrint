@@ -20,7 +20,10 @@ namespace Spoon.Tools.TemplatePrint
 	/// </summary>
 	public partial class MainForm : Form
 	{
-		private Point m_scrollPos=Point.Empty;
+//		private Point m_scrollPos=Point.Empty;
+		/// <summary>
+		/// 编辑面板
+		/// </summary>
 		private Control m_property=null;
 		
 		/// <summary>
@@ -33,8 +36,25 @@ namespace Spoon.Tools.TemplatePrint
 		/// </summary>
 		private string m_layoutPath=string.Empty;
 		
+		/// <summary>
+		/// 标识是否已保存
+		/// </summary>
 		private bool m_isSaved=false;
 		
+		/// <summary>
+		/// 绑定数据(Excel文件)
+		/// </summary>
+		private string m_dataPath=string.Empty;
+		
+		/// <summary>
+		/// 默认打印机
+		/// </summary>
+		private string m_defaultPrinter=string.Empty;
+		
+		#region 属性
+		/// <summary>
+		/// 打开的文件路径
+		/// </summary>
 		public string LayoutPath{
 			get{return m_layoutPath;}
 			set{
@@ -47,6 +67,9 @@ namespace Spoon.Tools.TemplatePrint
 			}
 		}
 		
+		/// <summary>
+		/// 标识是否保存
+		/// </summary>
 		public bool IsSaved{
 			get{return m_isSaved;}
 			set{
@@ -54,6 +77,8 @@ namespace Spoon.Tools.TemplatePrint
 				Text=(value?string.Empty:"*")+Text.TrimStart('*');
 			}
 		}
+		
+		#endregion
 		
 		public MainForm()
 		{
@@ -119,6 +144,12 @@ namespace Spoon.Tools.TemplatePrint
 			
 			if(Helper.CommandHelper.Configs.ContainsKey("file")){
 				OpenFile(Helper.CommandHelper.Configs["file"]);
+			}
+			if(Helper.CommandHelper.Configs.ContainsKey("set-printername")){
+				m_defaultPrinter=Helper.CommandHelper.Configs["set-printername"];
+			}
+			if(Helper.CommandHelper.Configs.ContainsKey("set-data-excel")){
+				m_dataPath=Helper.CommandHelper.Configs["set-data-excel"];
 			}
 		}
 		
@@ -200,10 +231,9 @@ namespace Spoon.Tools.TemplatePrint
 				}
 			}
 			if(LayoutPath!=string.Empty){
-				var doc=XmlHelper.NewDocment();
+				var doc=Helper.XmlHelper.NewDocment();
 				doc.AppendChild(canvas21.ToXml(doc));
 				Helper.UnitHelper.ArchiveFiles(doc,LayoutPath);
-//				doc.Save(m_layoutPath);
 				IsSaved=true;
 			}
 		}
@@ -211,77 +241,32 @@ namespace Spoon.Tools.TemplatePrint
 		{
 			LayoutPath=string.Empty;
 			System.Xml.XmlDocument doc=new System.Xml.XmlDocument();
-			doc.Load(System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Application.ExecutablePath),"new.xml"));
+			doc.LoadXml(RES.Template_New);
 			canvas21.Init(doc);
 			canvas21.Author=string.Empty;
 			IsSaved=false;
 		}
-		void TestToolStripMenuItemClick(object sender, EventArgs e)
-		{
-			return;
-			var dds = System.IO.Directory.GetDirectories(@"C:\Users\0115289\Documents\SharpDevelop Projects\SpoonSystem\TemplatePrint\bin\Debug\templates");
-			foreach (var ds in dds) {
-				foreach (var f in System.IO.Directory.GetFiles(ds,"*.xml")) {
-//					System.Diagnostics.Debug.WriteLine(f);
-					if(System.IO.Path.GetExtension(f)!=".xml") continue;
-					var olddoc = new System.Xml.XmlDocument();
-			
-					olddoc.Load(f);
-			
-					var doc = XmlHelper.NewDocment();
-					wCanvas canvas = new wCanvas();
-					canvas.Author = "Elder Yao";
-			
-					var size = olddoc.SelectSingleNode("/layout/size");
-					canvas.Size = new System.Drawing.Size(int.Parse(size.Attributes["width"].Value), int.Parse(size.Attributes["height"].Value));
-			
-					var background = olddoc.SelectSingleNode("/layout/background");
-					canvas.BackgroundPath = @"C:\Users\0115289\Documents\SharpDevelop Projects\SpoonSystem\TemplatePrint\bin\Debug\" + background.Attributes["path"].Value;
-					var ss = float.Parse(background.Attributes["scale"].Value);
-					canvas.BackgroundRect = new Rectangle(0, 0, (int)(canvas.BackgroundImage.Width * ss), (int)(canvas.BackgroundImage.Height * ss));
-			
-					foreach (System.Xml.XmlNode item in olddoc.SelectSingleNode("/layout/items").ChildNodes) {
-						var lbl = new Controls.wLabel();
-						lbl.ShowBorder=false;
-						lbl.Name = item.Attributes["name"].Value;
-						lbl.Text = item.Attributes["value"].Value;
-						lbl.Rectangle = new System.Drawing.Rectangle(
-							int.Parse(item.Attributes["left"].Value),
-							int.Parse(item.Attributes["top"].Value),
-							int.Parse(item.Attributes["width"].Value),
-							int.Parse(item.Attributes["height"].Value)
-						);
-						var fc = new System.Drawing.FontConverter();
-						lbl.Font = fc.ConvertFromString(item.Attributes["font"].Value) as System.Drawing.Font;
-				
-						lbl.ShowBorder = true;
-						canvas.Controls.Add(lbl);
-					}
-			
-					doc.AppendChild(canvas.ToXml(doc));
-//					doc.Save(f + "x");
-					
-					Helper.UnitHelper.ArchiveFiles(doc,f+"bg");
-				}
-			}
-			MessageBox.Show("OK");
-		}
 		void 打印预览ToolStripMenuItemClick(object sender, EventArgs e)
 		{
-			var printer=new InputPrinter();
-			if(printer.ShowDialog(this)==DialogResult.OK){
-				var doc=new PrintHelper(printer.PrinterName,PrintHelper.DisplayToMm(canvas21.Width),PrintHelper.DisplayToMm(canvas21.Height));
-				doc.Canvas=canvas21;
-				
-				var ofd=new OpenFileDialog();
-				if(ofd.ShowDialog()!=DialogResult.OK) return;
-				
-				doc.Data=Helper.ExcelHelper.ExcelToTemplateData(ofd.FileName,"sheet1");
-				
-				PrintPreviewDialog pp=new PrintPreviewDialog();
-				pp.Document=doc;
-				pp.ShowDialog();
+			var printername=m_defaultPrinter;
+			if (printername == string.Empty) {
+				var printer = new InputPrinter();
+				if (printer.ShowDialog(this) == DialogResult.OK) {
+					printername=printer.PrinterName;
+				}else{
+					return;
+				}
 			}
+			
+			var doc = new Helper.PrintHelper(printername, Helper.PrintHelper.DisplayToMm(canvas21.Width), Helper.PrintHelper.DisplayToMm(canvas21.Height));
+			doc.Canvas = canvas21;
+			if (m_dataPath != string.Empty) {
+				doc.Data = Helper.ExcelHelper.ExcelToTemplateData(m_dataPath, "sheet1");
+			}
+		
+			PrintPreviewDialog pp = new PrintPreviewDialog();
+			pp.Document = doc;
+			pp.ShowDialog();
 		}
 		void 关于AToolStripMenuItemClick(object sender, EventArgs e)
 		{
@@ -302,38 +287,25 @@ namespace Spoon.Tools.TemplatePrint
 				e.Effect=DragDropEffects.Copy;
 			}
 		}
-		void 保存2ToolStripMenuItemClick(object sender, EventArgs e)
-		{
-			using (var sfd=new SaveFileDialog()) {
-				if(sfd.ShowDialog()==DialogResult.OK){
-					var doc=XmlHelper.NewDocment();
-					doc.AppendChild(canvas21.ToXml(doc));
-					
-					Helper.UnitHelper.ArchiveFiles(doc,sfd.FileName);
-					MessageBox.Show("OK");
-				}
-			}
-		}
-		void 打开2ToolStripMenuItemClick(object sender, EventArgs e)
-		{
-			using (var ofd = new OpenFileDialog()) {
-				if (ofd.ShowDialog() == DialogResult.OK) {
-					if (m_workplacePath != string.Empty) {
-						System.IO.Directory.Delete(m_workplacePath, true);
-					}
-					m_workplacePath = Helper.UnitHelper.GetTemplateFolderName();
-					
-					Helper.UnitHelper.UnArchiveFiles(ofd.FileName, m_workplacePath);
-					OpenFile(m_workplacePath + "\\layout.xml");
-				}
-			}
-		}
-		
 		protected override void OnFormClosed(FormClosedEventArgs e)
 		{
 			base.OnFormClosed(e);
 			if(m_workplacePath!=string.Empty){
 				System.IO.Directory.Delete(m_workplacePath,true);
+			}
+		}
+		void 另存为ASToolStripMenuItemClick(object sender, EventArgs e)
+		{
+			LayoutPath=string.Empty;
+			保存SToolStripMenuItemClick(保存SToolStripMenuItem,EventArgs.Empty);
+		}
+		void 绑定数据ToolStripMenuItemClick(object sender, EventArgs e)
+		{
+			using (var ofd=new OpenFileDialog()) {
+				ofd.Filter="数据文件(*.xls;*.xlsx)|*.xls;*.xlsx|所有文件(*.*)|*.*";
+				if(ofd.ShowDialog()==DialogResult.OK){
+					m_dataPath=ofd.FileName;
+				}
 			}
 		}
 	}

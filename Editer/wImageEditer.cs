@@ -58,6 +58,10 @@ namespace Spoon.Tools.TemplatePrint.Editer
 		{
 			using (var ofd=new OpenFileDialog()) {
 				ofd.Filter="图片文件(*.jpeg;*.jpg;*.png;*.bmp;*.gif)|*.jpeg;*.jpg;*.png;*.bmp;*.gif|所有文件(*.*)|*.*";
+				if(Control.ImagePath!=string.Empty){
+					ofd.InitialDirectory=System.IO.Path.GetDirectoryName(Control.ImagePath);
+					ofd.FileName=Control.ImagePath;
+				}
 				if(ofd.ShowDialog()==DialogResult.OK){
 					txtImagePath.Text=ofd.FileName;
 					Control.ImagePath=ofd.FileName;

@@ -230,7 +230,7 @@ namespace Spoon.Tools.TemplatePrint.Controls
 		/// </summary>
 		/// <param name="g"></param>
 		public virtual void Paint(Graphics g){
-			g.FillRectangle(new SolidBrush(Color.FromArgb(150,255,255,255)),Rectangle);
+			g.FillRectangle(new SolidBrush(Color.FromArgb(150,0,255,60)),Rectangle);
 			//绘制边框
 			if(m_showBorder){
 				g.DrawRectangle(Pens.Black,m_rect);
@@ -247,7 +247,7 @@ namespace Spoon.Tools.TemplatePrint.Controls
 		/// </summary>
 		/// <param name="datalist"></param>
 		/// <param name="e"></param>
-		public virtual void DoPrint(System.Collections.Generic.Dictionary<string,string> datalist,PrintHelper.wPrintEventArgs e){
+		public virtual void DoPrint(System.Collections.Generic.Dictionary<string,string> datalist,Helper.PrintHelper.wPrintEventArgs e){
 			if(m_showBorder){
 				var rect=m_rect;
 				rect.Offset(e.Offset);
@@ -268,9 +268,9 @@ namespace Spoon.Tools.TemplatePrint.Controls
 			if(node==null){
 				 node=node.OwnerDocument.CreateElement("control");
 			}
-			XmlHelper.AddAttribute("name",Name,node);
-			XmlHelper.AddAttribute("border-visible",ShowBorder.ToString(),node);
-			XmlHelper.AddRectangleAttribute(Rectangle,node);
+			Helper.XmlHelper.AddAttribute("name",Name,node);
+			Helper.XmlHelper.AddAttribute("border-visible",ShowBorder.ToString(),node);
+			Helper.XmlHelper.AddRectangleAttribute(Rectangle,node);
 			
 			return node;
 		}

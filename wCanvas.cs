@@ -124,6 +124,12 @@ namespace Spoon.Tools.TemplatePrint
 			m_collection=new wControlCollection(this);
 		}
 		
+		public wCanvas(System.Xml.XmlDocument doc){
+			base.DoubleBuffered=true;
+			m_collection=new wControlCollection(this);
+			Init(doc);
+		}
+		
 		public void Init(System.Xml.XmlDocument doc){
 			Controls.Clear();
 			var layout=doc.SelectSingleNode("/layout");
@@ -178,10 +184,6 @@ namespace Spoon.Tools.TemplatePrint
 			}
 			SelectControl=null;
 			Refresh();
-		}
-		
-		public wCanvas(System.Xml.XmlDocument doc){
-			Init(doc);
 		}
 		
 		#region 属性
@@ -325,7 +327,7 @@ namespace Spoon.Tools.TemplatePrint
 		/// 清除选中
 		/// </summary>
 		protected void ClearSelect(){
-			m_selectControl=null;
+			SelectControl=null;
 			m_selectControlPressedType=SizeType.SizeNone;
 			m_selectControlRect=Rectangle.Empty;
 		}
@@ -574,7 +576,7 @@ namespace Spoon.Tools.TemplatePrint
 			}
 		}
 		
-		public void DoPrint(System.Collections.Generic.Dictionary<string,string> datalist,PrintHelper.wPrintEventArgs e){
+		public void DoPrint(System.Collections.Generic.Dictionary<string,string> datalist,Helper.PrintHelper.wPrintEventArgs e){
 			var g=e.Graphics;
 			g.Clear(Color.White);
 			//绘制背景
@@ -626,32 +628,32 @@ namespace Spoon.Tools.TemplatePrint
 		#region IwSerializable implementation
 		public System.Xml.XmlNode ToXml(System.Xml.XmlDocument doc){
 			var layout=doc.CreateElement("layout");
-			XmlHelper.AddAttribute("version",version,layout);
+			Helper.XmlHelper.AddAttribute("version",version,layout);
 			
 			var property=doc.CreateElement("property");
 			
 			//绘制人
 			var author=doc.CreateElement("author");
-			XmlHelper.AddAttribute("name",Author,author);
+			Helper.XmlHelper.AddAttribute("name",Author,author);
 			property.AppendChild(author);
 			
 			//尺寸
 			var canvas=doc.CreateElement("canvas");
-			XmlHelper.AddSizeAttribute(Size,canvas);
+			Helper.XmlHelper.AddSizeAttribute(Size,canvas);
 			property.AppendChild(canvas);
 			
 			//背景[可选]
 			if(m_backgroungPath!=string.Empty){
 				var background=doc.CreateElement("background");
-				XmlHelper.AddRectangleAttribute(BackgroundRect,background);
-				XmlHelper.AddAttribute("src",BackgroundPath,background);
+				Helper.XmlHelper.AddRectangleAttribute(BackgroundRect,background);
+				Helper.XmlHelper.AddAttribute("src",BackgroundPath,background);
 				property.AppendChild(background);
 			}
 			
 			//时间
 			var datetime=doc.CreateElement("datetime");
-			XmlHelper.AddAttribute("createtime",CreateTime.ToString(),datetime);
-			XmlHelper.AddAttribute("updatetime",DateTime.Now.ToString(),datetime);
+			Helper.XmlHelper.AddAttribute("createtime",CreateTime.ToString(),datetime);
+			Helper.XmlHelper.AddAttribute("updatetime",DateTime.Now.ToString(),datetime);
 			property.AppendChild(datetime);
 			
 			layout.AppendChild(property);
