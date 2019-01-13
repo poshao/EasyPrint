@@ -66,7 +66,7 @@ namespace Spoon.Tools.TemplatePrint.Helper
 		/// </summary>
 		/// <param name="size"></param>
 		/// <param name="node"></param>
-		public static void AddSizeAttribute(System.Drawing.Size size,System.Xml.XmlNode node){
+		public static void AddSizeAttribute(System.Drawing.SizeF size,System.Xml.XmlNode node){
 			AddAttribute("width",size.Width.ToString(),node);
 			AddAttribute("height",size.Height.ToString(),node);
 		}

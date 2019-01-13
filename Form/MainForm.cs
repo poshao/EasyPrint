@@ -18,7 +18,7 @@ namespace Spoon.Tools.TemplatePrint
 	/// <summary>
 	/// Description of MainForm.
 	/// </summary>
-	public partial class MainForm : Form
+	public partial class MainForm : System.Windows.Forms.Form
 	{
 //		private Point m_scrollPos=Point.Empty;
 		/// <summary>
@@ -97,7 +97,7 @@ namespace Spoon.Tools.TemplatePrint
 			m_lbl.Location=new Point(10,50);
 			
 			canvas21.Controls.Add(m_lbl);
-			
+            canvas21.SizeF = new SizeF(canvas21.Width, canvas21.Height);
 			canvas21.SelectControlChangedEvent += new EventHandler(
 				delegate(object sender, EventArgs args) {
 					IsSaved=false;
@@ -108,15 +108,25 @@ namespace Spoon.Tools.TemplatePrint
 						m_property = null;
 					}
 					if (ctl != null) {
-						if (ctl is wLabel) {
-							m_property = new Editer.wLabelEditer(ctl as wLabel);
-						} else if (ctl is wImage) {
-							m_property = new Spoon.Tools.TemplatePrint.Editer.wImageEditer(ctl as wImage);
-						} else if (ctl is wBarcode) {
-							m_property = new Spoon.Tools.TemplatePrint.Editer.wBarcodeEditer(ctl as wBarcode);
-						} else if (ctl is wQRCoder) {
-							m_property=new Spoon.Tools.TemplatePrint.Editer.wQRCoderEditer(ctl as wQRCoder);
-						}else{
+                        if (ctl is wLabel)
+                        {
+                            m_property = new Editer.wLabelEditer(ctl as wLabel);
+                        }
+                        else if (ctl is wImage)
+                        {
+                            m_property = new Spoon.Tools.TemplatePrint.Editer.wImageEditer(ctl as wImage);
+                        }
+                        else if (ctl is wBarcode)
+                        {
+                            m_property = new Spoon.Tools.TemplatePrint.Editer.wBarcodeEditer(ctl as wBarcode);
+                        }
+                        else if (ctl is wQRCoder)
+                        {
+                            m_property = new Spoon.Tools.TemplatePrint.Editer.wQRCoderEditer(ctl as wQRCoder);
+                        }else if (ctl is wTable) {
+                            m_property = new Spoon.Tools.TemplatePrint.Editer.wTableEditer(ctl as wTable);
+                        }
+                        else{
 							m_property = new Spoon.Tools.TemplatePrint.Editer.wControlEditer(canvas21.SelectControl);
 						}
 					} else {
@@ -161,6 +171,7 @@ namespace Spoon.Tools.TemplatePrint
 					var lbl=new wLabel();
 					lbl.Name="label";
 					lbl.Text="test";
+                    lbl.ShowBorder = false;
 					lbl.Location=new Point(10,50);
 					canvas21.Controls.Add(lbl);
 					break;
@@ -184,6 +195,13 @@ namespace Spoon.Tools.TemplatePrint
 					qrcode.Text="hello";
 					qrcode.Location=new Point(10,50);
 					canvas21.Controls.Add(qrcode);
+					break;
+				case "sbTable":
+					var tb=new wTable();
+					tb.Name="table";
+					//tb.Size=new Size(200,100);
+					tb.Location=new Point(10,10);
+					canvas21.Controls.Add(tb);
 					break;
 			}
 			canvas21.SelectControl=canvas21.Controls[canvas21.Controls.Count-1];
@@ -261,7 +279,14 @@ namespace Spoon.Tools.TemplatePrint
 			var doc = new Helper.PrintHelper(printername, Helper.PrintHelper.DisplayToMm(canvas21.Width), Helper.PrintHelper.DisplayToMm(canvas21.Height));
 			doc.Canvas = canvas21;
 			if (m_dataPath != string.Empty) {
-				doc.Data = Helper.ExcelHelper.ExcelToTemplateData(m_dataPath, "sheet1");
+
+                //以下代码用于支持Demon生成Json
+                var bs = System.IO.File.ReadAllBytes(m_dataPath);
+                var jsonString = System.Text.Encoding.GetEncoding("gb2312").GetString(bs);
+                doc.JsonData = Newtonsoft.Json.Linq.JObject.Parse(jsonString)["data"] as Newtonsoft.Json.Linq.JArray;
+
+                //默认使用utf-8文件编码
+                //doc.JsonData = Newtonsoft.Json.Linq.JObject.Parse(System.IO.File.ReadAllText(m_dataPath))["data"] as Newtonsoft.Json.Linq.JArray;
 			}
 		
 			PrintPreviewDialog pp = new PrintPreviewDialog();
@@ -302,7 +327,7 @@ namespace Spoon.Tools.TemplatePrint
 		void 绑定数据ToolStripMenuItemClick(object sender, EventArgs e)
 		{
 			using (var ofd=new OpenFileDialog()) {
-				ofd.Filter="数据文件(*.xls;*.xlsx)|*.xls;*.xlsx|所有文件(*.*)|*.*";
+				ofd.Filter="数据文件(*.json)|*.json|所有文件(*.*)|*.*";
 				if(ofd.ShowDialog()==DialogResult.OK){
 					m_dataPath=ofd.FileName;
 				}

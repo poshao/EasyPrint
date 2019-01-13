@@ -1,0 +1,377 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <ProjectGuid>{408496FB-9872-42D6-96A2-831DA3957798}</ProjectGuid>
+    <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Spoon.Tools.TemplatePrint</RootNamespace>
+    <AssemblyName>TemplatePrint</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+    <NoStdLib>False</NoStdLib>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+    <WarningLevel>4</WarningLevel>
+    <SignAssembly>False</SignAssembly>
+    <AssemblyOriginatorKeyFile>byron.snk</AssemblyOriginatorKeyFile>
+    <DelaySign>False</DelaySign>
+    <AssemblyOriginatorKeyMode>File</AssemblyOriginatorKeyMode>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <ApplicationIcon>logo\logo_32.ico</ApplicationIcon>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>\\FPPDNAN01\bygon ftp\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Unc</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
+    <WebPage>publish.htm</WebPage>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <BaseAddress>4194304</BaseAddress>
+    <RegisterForComInterop>False</RegisterForComInterop>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <FileAlignment>4096</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>Full</DebugType>
+    <Optimize>False</Optimize>
+    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
+    <StartAction>Project</StartAction>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <DebugSymbols>False</DebugSymbols>
+    <DebugType>None</DebugType>
+    <Optimize>True</Optimize>
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '静默打印|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\静默打印\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <FileAlignment>4096</FileAlignment>
+    <DebugType>Full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>9A3B00C22655B6BA0ADED43CAC0D3DD2335882FC</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>TemplatePrint_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <FileAlignment>4096</FileAlignment>
+    <DebugType>Full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <FileAlignment>4096</FileAlignment>
+    <DebugType>None</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '静默打印|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\静默打印\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <FileAlignment>4096</FileAlignment>
+    <DebugType>Full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <FileAlignment>4096</FileAlignment>
+    <DebugType>Full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <FileAlignment>4096</FileAlignment>
+    <DebugType>None</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '静默打印|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\静默打印\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <FileAlignment>4096</FileAlignment>
+    <DebugType>Full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BarcodeLib">
+      <HintPath>..\..\..\..\libs\barcodelib\BarcodeLib.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\..\..\..\libs\NPOI binary 2.1.3.1\dotnet4\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13\lib\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\..\..\libs\Json100r2\Bin\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI">
+      <HintPath>..\..\..\..\libs\NPOI binary 2.1.3.1\dotnet4\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OOXML">
+      <HintPath>..\..\..\..\libs\NPOI binary 2.1.3.1\dotnet4\NPOI.OOXML.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXml4Net">
+      <HintPath>..\..\..\..\libs\NPOI binary 2.1.3.1\dotnet4\NPOI.OpenXml4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXmlFormats">
+      <HintPath>..\..\..\..\libs\NPOI binary 2.1.3.1\dotnet4\NPOI.OpenXmlFormats.dll</HintPath>
+    </Reference>
+    <Reference Include="QRCoder">
+      <HintPath>..\..\..\..\libs\QRCoder\Release\net40\QRCoder.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controls\wBarcode.cs" />
+    <Compile Include="Controls\wControl.cs" />
+    <Compile Include="Controls\wImage.cs" />
+    <Compile Include="Controls\wLabel.cs" />
+    <Compile Include="Controls\wQRCoder.cs" />
+    <Compile Include="Controls\wTable.cs" />
+    <Compile Include="Editer\wBarcodeEditer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editer\wBarcodeEditer.Designer.cs">
+      <DependentUpon>wBarcodeEditer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editer\wCanvasEditer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editer\wCanvasEditer.Designer.cs">
+      <DependentUpon>wCanvasEditer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editer\wControlEditer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editer\wControlEditer.Designer.cs">
+      <DependentUpon>wControlEditer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editer\wImageEditer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editer\wImageEditer.Designer.cs">
+      <DependentUpon>wImageEditer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editer\wLabelEditer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editer\wLabelEditer.Designer.cs">
+      <DependentUpon>wLabelEditer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editer\wQRCoderEditer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editer\wQRCoderEditer.Designer.cs">
+      <DependentUpon>wQRCoderEditer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editer\wTableEditer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editer\wTableEditer.Designer.cs">
+      <DependentUpon>wTableEditer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\About.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\About.Designer.cs">
+      <DependentUpon>About.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\InputPrinter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\InputPrinter.Designer.cs">
+      <DependentUpon>InputPrinter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\MainForm1.Designer.cs">
+      <DependentUpon>MainForm.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Form\TestForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\TestForm.Designer.cs">
+      <DependentUpon>TestForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helper\ArchiveHelper.cs" />
+    <Compile Include="Helper\CommandHelper.cs" />
+    <Compile Include="Helper\ExcelHelper.cs" />
+    <Compile Include="Helper\PDFHelper.cs" />
+    <Compile Include="Helper\PrintHelper.cs" />
+    <Compile Include="Helper\UnitHelper.cs" />
+    <Compile Include="Helper\XmlHelper.cs" />
+    <Compile Include="interface.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RES.Designer.cs">
+      <DependentUpon>RES.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <None Include="packages.config" />
+    <None Include="test\JSON_TEST.cs" />
+    <None Include="test\Print_TEST.cs" />
+    <None Include="test\Test1.cs" />
+    <Compile Include="test\GeneratePDF.cs" />
+    <Compile Include="test\PDFTest.cs" />
+    <Compile Include="wCanvas.cs" />
+    <Compile Include="wControlCollection.cs" />
+    <Compile Include="wExplorer.cs" />
+    <Compile Include="wExplorer.Designer.cs">
+      <DependentUpon>wExplorer.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Icons\barcode_32px_1098043_easyicon.net.png" />
+    <None Include="Icons\barcode_d_32px_1085918_easyicon.net.png" />
+    <None Include="Icons\image_32px_1098224_easyicon.net.png" />
+    <None Include="Icons\qrcode_32px_1102693_easyicon.net.png" />
+    <None Include="Icons\spoon_128px_1149960_easyicon.net.ico" />
+    <None Include="Icons\spoon_144.97612732095px_1149960_easyicon.net.png" />
+    <None Include="Icons\table_32px_1143528_easyicon.net.png" />
+    <None Include="Icons\text_serif_32px_1093241_easyicon.net.png" />
+    <None Include="log.txt" />
+    <None Include="params.txt" />
+    <None Include="printTest.bat" />
+    <None Include="register\取消关联.reg" />
+    <None Include="register\文件关联.reg" />
+    <None Include="TemplatePrint_TemporaryKey.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Editer\wBarcodeEditer.resx">
+      <DependentUpon>wBarcodeEditer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editer\wCanvasEditer.resx">
+      <DependentUpon>wCanvasEditer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editer\wControlEditer.resx">
+      <DependentUpon>wControlEditer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editer\wImageEditer.resx">
+      <DependentUpon>wImageEditer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editer\wLabelEditer.resx">
+      <DependentUpon>wLabelEditer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editer\wQRCoderEditer.resx">
+      <DependentUpon>wQRCoderEditer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editer\wTableEditer.resx">
+      <DependentUpon>wTableEditer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\About.resx">
+      <DependentUpon>About.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\InputPrinter.resx">
+      <DependentUpon>InputPrinter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>MainForm1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\TestForm.resx">
+      <DependentUpon>TestForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RES.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <CustomToolNamespace>Spoon.Tools.TemplatePrint</CustomToolNamespace>
+      <LastGenOutput>RES.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="wExplorer.resx">
+      <DependentUpon>wExplorer.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Icons\table_54.72513368984px_1148895_easyicon.net.png" />
+    <Content Include="logo\logo_128.ico" />
+    <Content Include="logo\logo_16.ico" />
+    <Content Include="logo\logo_32.ico" />
+    <Content Include="logo\logo_48.ico" />
+    <Content Include="logo\logo_64.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

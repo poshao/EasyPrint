@@ -29,10 +29,10 @@ namespace Spoon.Tools.TemplatePrint
 	/// <summary>
 	/// 画布类
 	/// </summary>
-	public class wCanvas:System.Windows.Forms.UserControl,IwSerializable
+	public class wCanvas:System.Windows.Forms.UserControl,IwSerializable,IwPrint
 	{
 		public event EventHandler SelectControlChangedEvent;
-		
+
 		/// <summary>
 		/// 文件版本
 		/// </summary>
@@ -47,26 +47,31 @@ namespace Spoon.Tools.TemplatePrint
 		/// 当前选中控件
 		/// </summary>
 		private Controls.wControl m_selectControl=null;
-		
+
+        /// <summary>
+        /// 移动前的控件
+        /// </summary>
+        private Controls.wControl m_originControl = null;
+
 		/// <summary>
 		/// 复制控件
 		/// </summary>
 		private Controls.wControl m_copyControl=null;
-		
-//		/// <summary>
-//		/// 当前选中控件集
-//		/// </summary>
-//		private wControlCollection m_selectControls=null;
-		
-		/// <summary>
-		/// 选中控件初始位置
-		/// </summary>
-		private Rectangle m_selectControlRect=Rectangle.Empty;
-		
-		/// <summary>
-		/// 鼠标点击位置
-		/// </summary>
-		private Point m_mousedownPos=Point.Empty;
+
+        //		/// <summary>
+        //		/// 当前选中控件集
+        //		/// </summary>
+        //private wControlCollection m_selectControls = null;
+
+        /// <summary>
+        /// 选中控件初始位置
+        /// </summary>
+        private Rectangle m_selectControlRect = Rectangle.Empty;
+
+        /// <summary>
+        /// 鼠标点击位置
+        /// </summary>
+        private Point m_mousedownPos=Point.Empty;
 		
 		/// <summary>
 		/// 尺寸位置编辑状态
@@ -107,7 +112,22 @@ namespace Spoon.Tools.TemplatePrint
 		/// 创建时间
 		/// </summary>
 		private DateTime m_createtime=DateTime.Now;
-		
+
+        private SizeF m_sizef = new SizeF();
+        /// <summary>
+        /// 画布尺寸
+        /// </summary>
+        public SizeF SizeF {
+            get {
+                return m_sizef;
+            }
+            set
+            {
+                m_sizef = value;
+                Size =new Size((int)value.Width,(int)value.Height);
+            }
+        }
+
 		/// <summary>
 		/// 内部控件
 		/// </summary>
@@ -143,7 +163,7 @@ namespace Spoon.Tools.TemplatePrint
 			this.Author=author.Attributes["name"].Value;
 			
 			var canvas=layout.SelectSingleNode("property/canvas");
-			this.Size=new Size(int.Parse(canvas.Attributes["width"].Value),int.Parse(canvas.Attributes["height"].Value));
+			this.SizeF=new SizeF(float.Parse(canvas.Attributes["width"].Value), float.Parse(canvas.Attributes["height"].Value));
 			
 			var background=layout.SelectSingleNode("property/background");
 			if(background!=null){
@@ -154,6 +174,8 @@ namespace Spoon.Tools.TemplatePrint
 					int.Parse(background.Attributes["height"].Value)
 				);
 				this.BackgroundPath=background.Attributes["src"].Value;
+                this.ShowBackground = bool.Parse(background.Attributes["visible"].Value);
+                
 			}else{
 				this.BackgroundPath=string.Empty;
 			}
@@ -176,6 +198,9 @@ namespace Spoon.Tools.TemplatePrint
 						break;
 					case "qrcoder":
 						ctl=new Controls.wQRCoder(item);
+						break;
+					case "table":
+						ctl=new Controls.wTable(item);
 						break;
 				}
 				if(ctl!=null){
@@ -331,13 +356,13 @@ namespace Spoon.Tools.TemplatePrint
 			m_selectControlPressedType=SizeType.SizeNone;
 			m_selectControlRect=Rectangle.Empty;
 		}
-		
-		/// <summary>
-		/// 字符类按键判定
-		/// </summary>
-		/// <param name="keyData"></param>
-		/// <returns></returns>
-		protected override bool IsInputKey(Keys keyData)
+
+        /// <summary>
+        /// 字符类按键判定
+        /// </summary>
+        /// <param name="keyData"></param>
+        /// <returns></returns>
+        protected override bool IsInputKey(Keys keyData)
 		{
 			if(keyData==Keys.Up || keyData==Keys.Right || keyData==Keys.Down || keyData==Keys.Left){
 				return true;
@@ -387,8 +412,9 @@ namespace Spoon.Tools.TemplatePrint
 						var orgControl=GetChildAtPoint(PointToClient(m_mousedownPos));
 						if(orgControl!=null){
 							orgControl.Rectangle=m_selectControl.Rectangle;
-							m_selectControl=orgControl;
-						}
+                            //SelectControl = orgControl;
+                            m_selectControl = orgControl;
+                        }
 						if(m_copyControl!=null){
 							Controls.Remove(m_copyControl);
 						}
@@ -440,13 +466,18 @@ namespace Spoon.Tools.TemplatePrint
 				Refresh();
 			}
 		}
-		
-		protected override void OnMouseUp(System.Windows.Forms.MouseEventArgs e)
-		{
-			base.OnMouseUp(e);
-			m_mousedownPos=Point.Empty;
-			m_selectControlPressedType=SizeType.SizeNone;
-		}
+
+        protected override void OnMouseUp(System.Windows.Forms.MouseEventArgs e)
+        {
+            base.OnMouseUp(e);
+            m_mousedownPos = Point.Empty;
+            m_selectControlPressedType = SizeType.SizeNone;
+            if (!ModifierKeys.HasFlag(Keys.Control) && m_originControl!=null) {
+                SelectControl = m_originControl;
+            }
+            m_copyControl = null;
+            m_originControl = null;
+        }
 		
 		protected override void OnMouseMove(System.Windows.Forms.MouseEventArgs e)
 		{
@@ -507,14 +538,16 @@ namespace Spoon.Tools.TemplatePrint
 						//支持复制
 						if(ModifierKeys.HasFlag(Keys.Control)){
 							if(/*m_selectControl is Controls.wLabel &&*/ m_copyControl==null){
+                                m_originControl = m_selectControl;
 								m_copyControl=m_selectControl.Clone() as Controls.wControl;
 //								
 								m_copyControl.Rectangle=m_selectControl.Rectangle;
 								m_selectControl.Rectangle=m_selectControlRect;
 //								
 								Controls.Add(m_copyControl);
-								m_selectControl=m_copyControl;
-							}
+                                SelectControl = m_copyControl;
+                                //m_selectControl=m_copyControl;
+                            }
 						}
 						m_selectControl.Left=m_selectControlRect.Left-m_mousedownPos.X+MousePosition.X;
 						m_selectControl.Top=m_selectControlRect.Top-m_mousedownPos.Y+MousePosition.Y;
@@ -575,8 +608,26 @@ namespace Spoon.Tools.TemplatePrint
 				
 			}
 		}
+
+		public void DoPrintJson(Newtonsoft.Json.Linq.JToken json, Spoon.Tools.TemplatePrint.Helper.PrintHelper.wPrintEventArgs e)
+		{
+			var g=e.Graphics;
+			g.Clear(Color.White);
+			//绘制背景
+			if(BackgroundImage!=null && ShowBackground){
+				var rect=m_backgroundRect.Equals(Rectangle.Empty)?new Rectangle(new Point(0,0),BackgroundImage.Size):m_backgroundRect;
+				rect.Offset(e.Offset);
+				g.DrawImage(BackgroundImage,rect);
+			}
+			//绘制元素
+			if(m_collection!=null){
+				foreach (var ctl in m_collection) {
+					ctl.DoPrintJson(json,e);
+				}
+			}
+		}
 		
-		public void DoPrint(System.Collections.Generic.Dictionary<string,string> datalist,Helper.PrintHelper.wPrintEventArgs e){
+		public void DoPrint(System.Collections.Generic.Dictionary<string,object> datalist,Helper.PrintHelper.wPrintEventArgs e){
 			var g=e.Graphics;
 			g.Clear(Color.White);
 			//绘制背景
@@ -639,7 +690,7 @@ namespace Spoon.Tools.TemplatePrint
 			
 			//尺寸
 			var canvas=doc.CreateElement("canvas");
-			Helper.XmlHelper.AddSizeAttribute(Size,canvas);
+			Helper.XmlHelper.AddSizeAttribute(SizeF,canvas);
 			property.AppendChild(canvas);
 			
 			//背景[可选]
@@ -647,6 +698,7 @@ namespace Spoon.Tools.TemplatePrint
 				var background=doc.CreateElement("background");
 				Helper.XmlHelper.AddRectangleAttribute(BackgroundRect,background);
 				Helper.XmlHelper.AddAttribute("src",BackgroundPath,background);
+                Helper.XmlHelper.AddAttribute("visible", ShowBackground.ToString(), background);
 				property.AppendChild(background);
 			}
 			

@@ -91,12 +91,31 @@ namespace Spoon.Tools.TemplatePrint.Controls
 			g.DrawString(m_value,m_font,Brushes.Black,new RectangleF(rect.Location,rect.Size),sf);
 		}
 		
-		public override void DoPrint(System.Collections.Generic.Dictionary<string, string> datalist,Helper.PrintHelper.wPrintEventArgs e)
+		public override void DoPrintJson(Newtonsoft.Json.Linq.JToken json, Spoon.Tools.TemplatePrint.Helper.PrintHelper.wPrintEventArgs e)
+		{
+			base.DoPrintJson(json, e);
+			var txt=m_value;
+			var jo=json as Newtonsoft.Json.Linq.JObject;
+			if(jo!=null && jo.ContainsKey(Name)){
+				txt=jo[Name].ToString();
+			}
+			var rect=Rectangle;
+			rect.Offset(1,1);
+			rect.Width-=1;
+			rect.Height-=1;
+			rect.Offset(e.Offset);
+			var sf=new StringFormat();
+			sf.Alignment=m_alignHorizontal;
+			sf.LineAlignment=m_alignVetical;
+			e.Graphics.DrawString(txt,m_font,Brushes.Black,new RectangleF(rect.Location,rect.Size),sf);
+		}
+		
+		public override void DoPrint(System.Collections.Generic.Dictionary<string, object> datalist,Helper.PrintHelper.wPrintEventArgs e)
 		{
 			base.DoPrint(datalist,e);
 			var txt=m_value;
 			if(datalist!=null && datalist.ContainsKey(Name)){
-				txt=datalist[Name];
+				txt=datalist[Name].ToString();
 			}
 			var rect=Rectangle;
 			rect.Offset(1,1);

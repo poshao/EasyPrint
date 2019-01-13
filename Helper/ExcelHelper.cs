@@ -26,7 +26,7 @@ namespace Spoon.Tools.TemplatePrint.Helper
 		{
 		}
 		
-		public static System.Collections.Generic.List<System.Collections.Generic.Dictionary<string, string>> ExcelToTemplateData(string filename,string sheetname){
+		public static System.Collections.Generic.List<System.Collections.Generic.Dictionary<string, object>> ExcelToTemplateData(string filename,string sheetname){
 			var fs=new FileStream(filename, FileMode.OpenOrCreate, FileAccess.ReadWrite);
 			
 			switch (Path.GetExtension(filename)) {
@@ -41,7 +41,7 @@ namespace Spoon.Tools.TemplatePrint.Helper
 					break;
 			}
 			
-			var list=new System.Collections.Generic.List<System.Collections.Generic.Dictionary<string, string>>();
+			var list=new System.Collections.Generic.List<System.Collections.Generic.Dictionary<string, object>>();
 			
 			var sheet=m_book.GetSheet(sheetname);
 			var firstRow=sheet.GetRow(0);
@@ -50,7 +50,7 @@ namespace Spoon.Tools.TemplatePrint.Helper
 				var row=sheet.GetRow(i);
 				if(row==null) continue;
 				
-				var item=new System.Collections.Generic.Dictionary<string,string>();
+				var item=new System.Collections.Generic.Dictionary<string,object>();
 				for (int j = 0; j < firstRow.LastCellNum; j++) {
 					if(firstRow.Cells[j]==null) continue;
 					var cell=row.Cells[j];

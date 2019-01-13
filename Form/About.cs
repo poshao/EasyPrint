@@ -16,7 +16,7 @@ namespace Spoon.Tools.TemplatePrint
 	/// <summary>
 	/// Description of About.
 	/// </summary>
-	public partial class About : System.Windows.Forms.Form
+	public partial class About :System.Windows.Forms.Form
 	{
 		public About()
 		{

@@ -92,11 +92,29 @@ namespace Spoon.Tools.TemplatePrint.Controls
 			}
 		}
 		
-		public override void DoPrint(System.Collections.Generic.Dictionary<string, string> datalist, Helper.PrintHelper.wPrintEventArgs e)
+		public override void DoPrintJson(Newtonsoft.Json.Linq.JToken json, Spoon.Tools.TemplatePrint.Helper.PrintHelper.wPrintEventArgs e)
+		{
+			base.DoPrintJson(json, e);
+			var jo=json as Newtonsoft.Json.Linq.JObject;
+			if(jo!=null && jo.ContainsKey(Name)){
+				GenerateImage(jo[Name].ToString());
+			}
+			var rect=Rectangle;
+			rect.Offset(1,1);
+			rect.Width-=1;
+			rect.Height-=1;
+			rect.Offset(e.Offset);
+			if(m_image!=null){
+				e.Graphics.DrawImageUnscaledAndClipped(m_image,rect);
+			}
+			GenerateImage();
+		}
+		
+		public override void DoPrint(System.Collections.Generic.Dictionary<string, object> datalist, Helper.PrintHelper.wPrintEventArgs e)
 		{
 			base.DoPrint(datalist, e);
 			if(datalist!=null && datalist.ContainsKey(Name)){
-				GenerateImage(datalist[Name]);
+				GenerateImage(datalist[Name].ToString());
 			}
 			var rect=Rectangle;
 			rect.Offset(1,1);

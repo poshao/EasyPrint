@@ -16,7 +16,7 @@ namespace Spoon.Tools.TemplatePrint
 	/// <summary>
 	/// Description of InputPrinter.
 	/// </summary>
-	public partial class InputPrinter : Form
+	public partial class InputPrinter : System.Windows.Forms.Form
 	{
 		private string m_printerName="";
 		
@@ -39,6 +39,7 @@ namespace Spoon.Tools.TemplatePrint
 			var printers=System.Drawing.Printing.PrinterSettings.InstalledPrinters;
 			for (int i = 0; i < printers.Count; i++) {
 				lstPrinters.Items.Add(printers[i]);
+                System.Diagnostics.Debug.WriteLine(printers[i]);
 				if(printers[i]==printName){
 					lstPrinters.SelectedIndex=i;
 				}

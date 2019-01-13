@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <StartArguments>
+    </StartArguments>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '静默打印|AnyCPU'">
+    <StartArguments>--quiet --layout "C:\Users\0115289\Desktop\ttt.bg" --printer "CutePDF Writer" --datafile "C:\Users\0115289\Desktop\workflow\current\物料管理系统\data.json"</StartArguments>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PublishUrlHistory />
+    <InstallUrlHistory />
+    <SupportUrlHistory />
+    <UpdateUrlHistory />
+    <BootstrapperUrlHistory />
+    <ErrorReportUrlHistory />
+    <FallbackCulture>zh-CN</FallbackCulture>
+    <VerifyUploadedFiles>false</VerifyUploadedFiles>
+  </PropertyGroup>
+  <PropertyGroup>
+    <EnableSecurityDebugging>false</EnableSecurityDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '静默打印|x64'">
+    <StartArguments>--quiet --layout "C:\Users\0115289\Desktop\ttt.bg" --printer "CutePDF Writer" --datafile "C:\Users\0115289\Desktop\workflow\current\物料管理系统\data.json"</StartArguments>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == '静默打印|x86'">
+    <StartArguments>--quiet --layout "C:\Users\0115289\Desktop\ttt.bg" --printer "CutePDF Writer" --datafile "C:\Users\0115289\Desktop\workflow\current\物料管理系统\data.json"</StartArguments>
+  </PropertyGroup>
+</Project>

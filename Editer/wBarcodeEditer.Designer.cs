@@ -45,77 +45,77 @@ namespace Spoon.Tools.TemplatePrint.Editer
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.label8 = new System.Windows.Forms.Label();
-			this.cbEncodingType = new System.Windows.Forms.ComboBox();
-			this.label9 = new System.Windows.Forms.Label();
-			this.txtValue = new System.Windows.Forms.TextBox();
-			this.ckShowText = new System.Windows.Forms.CheckBox();
-			this.SuspendLayout();
-			// 
-			// label8
-			// 
-			this.label8.Location = new System.Drawing.Point(14, 166);
-			this.label8.Name = "label8";
-			this.label8.Size = new System.Drawing.Size(46, 13);
-			this.label8.TabIndex = 5;
-			this.label8.Text = "Type";
-			// 
-			// cbEncodingType
-			// 
-			this.cbEncodingType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.cbEncodingType.FormattingEnabled = true;
-			this.cbEncodingType.Location = new System.Drawing.Point(59, 163);
-			this.cbEncodingType.Name = "cbEncodingType";
-			this.cbEncodingType.Size = new System.Drawing.Size(161, 21);
-			this.cbEncodingType.TabIndex = 6;
-			this.cbEncodingType.SelectedIndexChanged += new System.EventHandler(this.CbEncodingTypeSelectedIndexChanged);
-			// 
-			// label9
-			// 
-			this.label9.Location = new System.Drawing.Point(14, 193);
-			this.label9.Name = "label9";
-			this.label9.Size = new System.Drawing.Size(46, 13);
-			this.label9.TabIndex = 5;
-			this.label9.Text = "Value";
-			// 
-			// txtValue
-			// 
-			this.txtValue.Location = new System.Drawing.Point(59, 190);
-			this.txtValue.Name = "txtValue";
-			this.txtValue.Size = new System.Drawing.Size(161, 20);
-			this.txtValue.TabIndex = 7;
-			this.txtValue.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtValueKeyDown);
-			this.txtValue.Leave += new System.EventHandler(this.TxtValueLeave);
-			// 
-			// ckShowText
-			// 
-			this.ckShowText.Location = new System.Drawing.Point(146, 216);
-			this.ckShowText.Name = "ckShowText";
-			this.ckShowText.Size = new System.Drawing.Size(74, 19);
-			this.ckShowText.TabIndex = 8;
-			this.ckShowText.Text = "显示文本";
-			this.ckShowText.UseVisualStyleBackColor = true;
-			this.ckShowText.CheckStateChanged += new System.EventHandler(this.CkShowTextCheckStateChanged);
-			// 
-			// wBarcodeEditer
-			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Controls.Add(this.ckShowText);
-			this.Controls.Add(this.txtValue);
-			this.Controls.Add(this.cbEncodingType);
-			this.Controls.Add(this.label9);
-			this.Controls.Add(this.label8);
-			this.Name = "wBarcodeEditer";
-			this.Size = new System.Drawing.Size(241, 256);
-			this.Controls.SetChildIndex(this.label8, 0);
-			this.Controls.SetChildIndex(this.label9, 0);
-			this.Controls.SetChildIndex(this.cbEncodingType, 0);
-			this.Controls.SetChildIndex(this.txtValue, 0);
-			this.Controls.SetChildIndex(this.ckShowText, 0);
-			this.ResumeLayout(false);
-			this.PerformLayout();
+            this.label8 = new System.Windows.Forms.Label();
+            this.cbEncodingType = new System.Windows.Forms.ComboBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.txtValue = new System.Windows.Forms.TextBox();
+            this.ckShowText = new System.Windows.Forms.CheckBox();
+            this.SuspendLayout();
+            // 
+            // label8
+            // 
+            this.label8.Location = new System.Drawing.Point(14, 166);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(46, 13);
+            this.label8.TabIndex = 5;
+            this.label8.Text = "Type";
+            // 
+            // cbEncodingType
+            // 
+            this.cbEncodingType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbEncodingType.FormattingEnabled = true;
+            this.cbEncodingType.Location = new System.Drawing.Point(59, 163);
+            this.cbEncodingType.Name = "cbEncodingType";
+            this.cbEncodingType.Size = new System.Drawing.Size(161, 21);
+            this.cbEncodingType.TabIndex = 6;
+            this.cbEncodingType.SelectedIndexChanged += new System.EventHandler(this.CbEncodingTypeSelectedIndexChanged);
+            // 
+            // label9
+            // 
+            this.label9.Location = new System.Drawing.Point(14, 193);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(46, 13);
+            this.label9.TabIndex = 5;
+            this.label9.Text = "Value";
+            // 
+            // txtValue
+            // 
+            this.txtValue.Location = new System.Drawing.Point(59, 190);
+            this.txtValue.Name = "txtValue";
+            this.txtValue.Size = new System.Drawing.Size(161, 20);
+            this.txtValue.TabIndex = 7;
+            this.txtValue.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtValueKeyDown);
+            this.txtValue.Leave += new System.EventHandler(this.TxtValueLeave);
+            // 
+            // ckShowText
+            // 
+            this.ckShowText.Location = new System.Drawing.Point(146, 216);
+            this.ckShowText.Name = "ckShowText";
+            this.ckShowText.Size = new System.Drawing.Size(74, 19);
+            this.ckShowText.TabIndex = 8;
+            this.ckShowText.Text = "显示文本";
+            this.ckShowText.UseVisualStyleBackColor = true;
+            this.ckShowText.CheckStateChanged += new System.EventHandler(this.CkShowTextCheckStateChanged);
+            // 
+            // wBarcodeEditer
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.ckShowText);
+            this.Controls.Add(this.txtValue);
+            this.Controls.Add(this.cbEncodingType);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.label8);
+            this.Name = "wBarcodeEditer";
+            this.Size = new System.Drawing.Size(241, 256);
+            this.Controls.SetChildIndex(this.label8, 0);
+            this.Controls.SetChildIndex(this.label9, 0);
+            this.Controls.SetChildIndex(this.cbEncodingType, 0);
+            this.Controls.SetChildIndex(this.txtValue, 0);
+            this.Controls.SetChildIndex(this.ckShowText, 0);
+            this.ResumeLayout(false);
+            this.PerformLayout();
 
 		}
-	}
+    }
 }

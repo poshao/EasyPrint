@@ -4,5 +4,14 @@
   --file 布局文件
   --set-data-excel path 数据文件
   --set-printername "normal" 打印机名称
-  --servermode 后台打印模式
+  --mode-server 后台打印模式
+
+
+
   --print-offset 10x20 打印偏移量(毫米)
+  --quiet 后台打印
+  --layout path 布局文件
+  --printer "normal" 打印机名称
+  --datafile path 数据文件(JSON格式 如{data:[{...},]})
+  --pdf 打印成PDF
+  --outfile 输出文件名

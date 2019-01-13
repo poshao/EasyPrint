@@ -16,7 +16,7 @@ namespace Spoon.Tools.TemplatePrint
 	/// <summary>
 	/// Description of TestForm.
 	/// </summary>
-	public partial class TestForm : Form
+	public partial class TestForm : System.Windows.Forms.Form
 	{
 		public TestForm()
 		{

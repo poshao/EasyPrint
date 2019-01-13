@@ -88,21 +88,21 @@ namespace Spoon.Tools.TemplatePrint.Editer
 			}
 		}
 		
-		public int cWidth{
+		public float cWidth{
 			get{return m_control.Width;}
 			set{
-				m_control.Width=value;
+                m_control.SizeF = new SizeF(value,m_control.SizeF.Height);
 				txtSizeWidthPixel.Text=value.ToString();
-				txtSizeWidthMm.Text=Helper.PrintHelper.DisplayToMm(value).ToString();
+				txtSizeWidthMm.Text=(Helper.PrintHelper.DisplayToMm((int)(value*100))/100.0F).ToString();
 			}
 		}
 		
-		public int cHeight{
+		public float cHeight{
 			get{return m_control.Height;}
 			set{
-				m_control.Height=value;
-				txtSizeHeightPixel.Text=value.ToString();
-				txtSizeHeightMm.Text=Helper.PrintHelper.DisplayToMm(value).ToString();
+                m_control.SizeF = new SizeF(m_control.SizeF.Width, value);
+                txtSizeHeightPixel.Text=value.ToString();
+				txtSizeHeightMm.Text= (Helper.PrintHelper.DisplayToMm((int)(value * 100)) / 100.0F).ToString();
 			}
 		}
 		
@@ -190,16 +190,16 @@ namespace Spoon.Tools.TemplatePrint.Editer
 					bHeight=Helper.PrintHelper.MmToDisplay(float.Parse(txt.Text));
 					break;
 				case "txtSizeWidthPixel":
-					cWidth=int.Parse(txt.Text);
+					cWidth=float.Parse(txt.Text);
 					break;
 				case "txtSizeHeightPixel":
-					cHeight=int.Parse(txt.Text);
+					cHeight=float.Parse(txt.Text);
 					break;
 				case "txtSizeWidthMm":
-					cWidth=Helper.PrintHelper.MmToDisplay(float.Parse(txt.Text));
+					cWidth=Helper.PrintHelper.MmToDisplay(float.Parse(txt.Text)*100)/100.0F;
 					break;
 				case "txtSizeHeightMm":
-					cHeight=Helper.PrintHelper.MmToDisplay(float.Parse(txt.Text));
+					cHeight=Helper.PrintHelper.MmToDisplay(float.Parse(txt.Text)*100)/100.0F;
 					break;
 				case "txtAuthor":
 					Control.Author=txt.Text;
@@ -275,5 +275,5 @@ namespace Spoon.Tools.TemplatePrint.Editer
 					break;
 			}
 		}
-	}
+    }
 }

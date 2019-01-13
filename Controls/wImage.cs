@@ -64,12 +64,32 @@ namespace Spoon.Tools.TemplatePrint.Controls
 			}
 		}
 		
-		public override void DoPrint(System.Collections.Generic.Dictionary<string, string> datalist,Helper.PrintHelper.wPrintEventArgs e)
+		public override void DoPrintJson(Newtonsoft.Json.Linq.JToken json, Spoon.Tools.TemplatePrint.Helper.PrintHelper.wPrintEventArgs e)
+		{
+			base.DoPrintJson(json, e);
+			var img=m_img;
+			var jo=json as Newtonsoft.Json.Linq.JObject;
+			if(jo!=null && jo.ContainsKey(Name)){
+				var img2=Image.FromFile(jo[Name].ToString());
+				img=new Bitmap(img2);
+				img2.Dispose();
+			}
+			var rect=Rectangle;
+			rect.Offset(1,1);
+			rect.Width-=1;
+			rect.Height-=1;
+			rect.Offset(e.Offset);
+			if(img!=null){
+				e.Graphics.DrawImage(img,rect);
+			}
+		}
+		
+		public override void DoPrint(System.Collections.Generic.Dictionary<string, object> datalist,Helper.PrintHelper.wPrintEventArgs e)
 		{
 			base.DoPrint(datalist,e);
 			var img=m_img;
 			if(datalist!=null && datalist.ContainsKey(Name)){
-				var img2=Image.FromFile(datalist[Name]);
+				var img2=Image.FromFile(datalist[Name].ToString());
 				img=new Bitmap(img2);
 				img2.Dispose();
 			}

@@ -158,5 +158,13 @@ namespace Spoon.Tools.TemplatePrint.Editer
 			Control.Text=txtValue.Text;
 			Control.Refresh();
 		}
-	}
+
+        private void txtValue_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                TxtValueLeave(sender, EventArgs.Empty);
+            }
+        }
+    }
 }

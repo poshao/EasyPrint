@@ -17,26 +17,42 @@ namespace Spoon.Tools.TemplatePrint
 	/// </summary>
 	internal sealed class Program
 	{
+		
 		/// <summary>
 		/// Program entry point.
 		/// </summary>
 		[STAThread]
 		private static void Main(string[] args)
 		{
-			Helper.CommandHelper.Parse(args);
-			var CFG=Helper.CommandHelper.Configs;
-			if(CFG.ContainsKey("mode-server")){
-				if(CFG.ContainsKey("file") && CFG.ContainsKey("set-data-excel") && CFG.ContainsKey("set-printername")){
-					Helper.PrintHelper.QuitePrint(CFG["file"],CFG["set-printername"],CFG["set-data-excel"]);
-					return;
-				}else{
-					Helper.CommandHelper.InvalidCommand();
-				}
-			}
-			
-			Application.EnableVisualStyles();
-			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new MainForm());
+            if (true)
+            {
+                Helper.CommandHelper.Parse(args);
+                var CFG = Helper.CommandHelper.Configs;
+
+                if (CFG.ContainsKey("quiet"))
+                {
+                    //后台打印
+                    if (CFG.ContainsKey("layout") && CFG.ContainsKey("datafile") && CFG.ContainsKey("printer"))
+                    {
+                        //Helper.PrintHelper.QuitePrint(CFG["file"],CFG["set-printername"],CFG["set-data-excel"]);
+                        Helper.PrintHelper.QuitePrintJson(CFG["layout"], CFG["printer"], CFG["datafile"]);
+                        return;
+                    }
+                    else
+                    {
+                        Helper.CommandHelper.InvalidCommand();
+                    }
+                }
+
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                Application.Run(new MainForm());
+            }
+            else
+            {
+                var ddd = new test.GeneratePDF();
+                
+            }
 		}
 		
 	}

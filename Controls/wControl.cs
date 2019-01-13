@@ -15,7 +15,7 @@ namespace Spoon.Tools.TemplatePrint.Controls
 	/// <summary>
 	/// 控件基类
 	/// </summary>
-	public abstract class wControl:IwSerializable
+	public abstract class wControl:IwSerializable,IwPrint
 	{
 		public delegate void SizeChangedEventHandler(object sender,EventArgs args);
 		public event SizeChangedEventHandler SizeChangedEvent;
@@ -233,7 +233,8 @@ namespace Spoon.Tools.TemplatePrint.Controls
 			g.FillRectangle(new SolidBrush(Color.FromArgb(150,0,255,60)),Rectangle);
 			//绘制边框
 			if(m_showBorder){
-				g.DrawRectangle(Pens.Black,m_rect);
+                g.DrawRectangle(Pens.Black, m_rect);
+                //g.DrawRectangle(Pens.Black,new Rectangle( m_rect.X-1,m_rect.Y-1,m_rect.Width+1,m_rect.Height+1));
 			}
 			//绘制名称
 			var WordSize=g.MeasureString("["+Name+"]",SystemFonts.DefaultFont);
@@ -241,13 +242,22 @@ namespace Spoon.Tools.TemplatePrint.Controls
 			g.DrawString("["+Name+"]",SystemFonts.DefaultFont,Brushes.DarkBlue,Rectangle.X,Rectangle.Y-16);
 			
 		}
-		
+
+		public virtual void DoPrintJson(Newtonsoft.Json.Linq.JToken json, Spoon.Tools.TemplatePrint.Helper.PrintHelper.wPrintEventArgs e)
+		{
+			if(m_showBorder){
+				var rect=m_rect;
+				rect.Offset(e.Offset);
+				e.Graphics.DrawRectangle(Pens.Black,rect);
+			}
+		}
+
 		/// <summary>
 		/// 打印过程
 		/// </summary>
 		/// <param name="datalist"></param>
 		/// <param name="e"></param>
-		public virtual void DoPrint(System.Collections.Generic.Dictionary<string,string> datalist,Helper.PrintHelper.wPrintEventArgs e){
+		public virtual void DoPrint(System.Collections.Generic.Dictionary<string,object> datalist,Helper.PrintHelper.wPrintEventArgs e){
 			if(m_showBorder){
 				var rect=m_rect;
 				rect.Offset(e.Offset);
