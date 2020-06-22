@@ -1,7 +1,7 @@
 # EasyPrint
 数据模板套打工具
 
-![](./preview/layout.png)
+![1](./preview/layout.png)
 
 依赖包
 * BarcodeLib
