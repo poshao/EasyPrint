@@ -88,7 +88,7 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
@@ -155,8 +155,8 @@
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\..\..\..\libs\NPOI binary 2.1.3.1\dotnet4\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
-    <Reference Include="itextsharp, Version=5.5.13.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
-      <HintPath>..\packages\iTextSharp.5.5.13\lib\itextsharp.dll</HintPath>
+    <Reference Include="itextsharp, Version=5.5.13.1, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>packages\iTextSharp.5.5.13.1\lib\itextsharp.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
@@ -270,7 +270,9 @@
     <Compile Include="Helper\CommandHelper.cs" />
     <Compile Include="Helper\ExcelHelper.cs" />
     <Compile Include="Helper\PDFHelper.cs" />
-    <Compile Include="Helper\PrintHelper.cs" />
+    <Compile Include="Helper\PrintHelper.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Helper\UnitHelper.cs" />
     <Compile Include="Helper\XmlHelper.cs" />
     <Compile Include="interface.cs" />
@@ -286,9 +288,13 @@
     <None Include="test\Test1.cs" />
     <Compile Include="test\GeneratePDF.cs" />
     <Compile Include="test\PDFTest.cs" />
-    <Compile Include="wCanvas.cs" />
+    <Compile Include="wCanvas.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="wControlCollection.cs" />
-    <Compile Include="wExplorer.cs" />
+    <Compile Include="wExplorer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="wExplorer.Designer.cs">
       <DependentUpon>wExplorer.cs</DependentUpon>
     </Compile>
@@ -308,7 +314,6 @@
     <None Include="printTest.bat" />
     <None Include="register\取消关联.reg" />
     <None Include="register\文件关联.reg" />
-    <None Include="TemplatePrint_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
