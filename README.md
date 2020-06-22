@@ -1,2 +1,19 @@
 # EasyPrint
-解决打印及相关需求
+数据模板套打工具
+
+![](./preview/layout.png)
+
+依赖包
+* BarcodeLib
+* ICSharpCode.SharpZipLib
+* itextsharp
+* Newtonsoft.Json
+* NPOI
+* QRCoder
+
+组件
+* 文本框
+* 图片框
+* 条形码
+* 二维码
+* 表格
